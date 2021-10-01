@@ -1,14 +1,32 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import config from './config/config';
+import logger from './config/logger';
+/** routes */
+import userRouter from './routers/user.router';
+import testRouter from './routers/test.router';
+
+const namespace = 'server';
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT;
 
-app.use(cors());
+app.use(
+    cors({
+        origin: '*',
+        methods: ['GET', 'POST', 'DELETE', 'PUT'],
+    })
+);
 
-app.listen(port, () => {
-  console.log('server is up and running');
+app.use('/user', userRouter);
+app.use('/test', testRouter);
+
+app.listen(config.PORT, () => {
+    logger.info({
+        namespace,
+        status: 200,
+        message: 'Server listening on port ' + config.PORT,
+    });
 });
