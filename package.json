@@ -17,9 +17,11 @@
         "typescript": "^4.4.3"
     },
     "devDependencies": {
+        "@types/colors": "^1.2.1",
         "@types/cors": "^2.8.12",
         "@types/express": "^4.17.13",
         "@types/mongoose": "^5.11.97",
+        "colors": "^1.4.0",
         "nodemon": "^2.0.12",
         "ts-node": "^10.2.1"
     }

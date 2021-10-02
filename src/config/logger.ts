@@ -1,14 +1,25 @@
 import { ILogger, IInfo } from '../types';
+import colors from 'colors';
 
 class Logger implements ILogger {
     private printToConsole(type: 'info' | 'error', info: IInfo): void {
-        const printMsg = `[${info.namespace}] [STATUS: ${info.status}] [MESSAGE: ${info.message}]`;
+        const printMsg = `[${colors.green(info.namespace)}] ${colors.yellow(
+            `[STATUS: ${info.status}]`
+        )} [MESSAGE: ${info.message}]`;
         switch (type) {
             case 'info':
-                console.info('INFO:', printMsg, info.object ? info.object : '');
+                console.info(
+                    colors.blue('INFO:'),
+                    printMsg,
+                    info.object ? info.object : ''
+                );
                 break;
             case 'error':
-                console.error('ERROR:', printMsg, info.object ? info.object : '');
+                console.error(
+                    colors.red('ERROR:'),
+                    printMsg,
+                    info.object ? info.object : ''
+                );
                 break;
         }
     }

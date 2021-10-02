@@ -1,2 +1,0 @@
-http://localhost:4054/test
-METHOD: GET

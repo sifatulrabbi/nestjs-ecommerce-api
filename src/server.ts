@@ -20,8 +20,12 @@ app.use(
     })
 );
 
-app.use('/user', userRouter);
-app.use('/test', testRouter);
+const routeAddress = (ext: string): string => {
+    return `/api/v1${ext}`;
+};
+
+app.use(routeAddress('/user'), userRouter);
+app.use(routeAddress('/test'), testRouter);
 
 app.listen(config.PORT, () => {
     logger.info({
