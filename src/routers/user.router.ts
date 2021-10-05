@@ -1,20 +1,8 @@
 import { Router } from 'express';
-import logger from '../config/logger';
+import userController from '../controllers/user.controller';
 
 const userRouter = Router();
-const namespace = 'USER ROUTE';
 
-userRouter.get('/', async (req, res) => {
-    try {
-        res.status(200);
-    } catch (error) {
-        res.status(500).send(error);
-        logger.error({
-            namespace,
-            status: 500,
-            message: `${error}`,
-        });
-    }
-});
+userRouter.route('/').get(userController.getUser);
 
 export default userRouter;
