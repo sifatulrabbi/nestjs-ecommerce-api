@@ -149,7 +149,7 @@ This API is an MIT-licensed open source project. If you'd like to join me in thi
 ## Stay in touch
 
 -   Author - [temujins](https://github.com/temujins)
--   Website - [https://nestjs.com](https://temujins.github.io)
+-   Website - [https://temujins.github.io](https://temujins.github.io)
 -   Twitter - [@nestframework](https://twitter.com/sifatul_rabbi)
 
 ## License
