@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { UserDto } from '../dto/users.dto';
 import { Users } from '../schemas/users.schema';
@@ -6,6 +6,11 @@ import { Users } from '../schemas/users.schema';
 @Controller('users')
 export class UserController {
   constructor(private usersService: UsersService) {}
+
+  @Get()
+  allUsers(): Promise<IResultData<Users[]>> {
+    return this.usersService.getAll();
+  }
 
   @Post('/sign-up')
   userSignUp(@Body() userDto: UserDto): Promise<IResultData<Users>> {
@@ -19,5 +24,13 @@ export class UserController {
       userDto.username,
       userDto.email,
     );
+  }
+
+  @Put(':username')
+  userInfoUpdate(
+    @Param('username') username: string,
+    @Body() userDto: UserDto,
+  ): Promise<IResultData<Users>> {
+    return this.usersService.update(username, userDto);
   }
 }

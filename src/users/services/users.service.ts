@@ -5,9 +5,6 @@ import { Users, UsersDocument } from '../schemas/users.schema';
 import { UserDto } from '../dto/users.dto';
 import { genSalt, hash, compare } from 'bcrypt';
 
-type ILoginData = IResultData<Users>;
-type ISignUpData = IResultData<Users>;
-
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('users') private usersModel: Model<UsersDocument>) {}
@@ -20,8 +17,20 @@ export class UsersService {
     return hashedPass;
   }
 
-  private async checkUser(password: string, user?: Users): Promise<ILoginData> {
-    const data: ILoginData = {
+  private async findUser(username?: string, email?: string): Promise<Users> {
+    if (username) {
+      return this.usersModel.findOne({ username });
+    }
+    if (email) {
+      return this.usersModel.findOne({ email });
+    }
+  }
+
+  private async checkUser(
+    password: string,
+    user?: Users,
+  ): Promise<IResultData<Users>> {
+    const data: IResultData<Users> = {
       statusCode: 404,
       message: 'User does not exists please sign up first',
     };
@@ -39,9 +48,20 @@ export class UsersService {
     }
   }
 
+  /** @method getAllUser */
+  async getAll(): Promise<IResultData<Users[]>> {
+    const data: IResultData<Users[]> = {
+      statusCode: 201,
+      message: 'All users data',
+    };
+
+    data.data = await this.usersModel.find({});
+    return data;
+  }
+
   /** @method signUp */
-  async create(userDto: UserDto): Promise<ISignUpData> {
-    const data: ISignUpData = {
+  async create(userDto: UserDto): Promise<IResultData<Users>> {
+    const data: IResultData<Users> = {
       statusCode: 500,
       message: 'Unable to sign up please try again',
     };
@@ -67,13 +87,39 @@ export class UsersService {
     password: string,
     username?: string,
     email?: string,
-  ): Promise<ILoginData> {
+  ): Promise<IResultData<Users>> {
     if (username) {
       const user = await this.usersModel.findOne({ username });
       return this.checkUser(password, user);
     } else if (email) {
       const user = await this.usersModel.findOne({ email });
       return this.checkUser(password, user);
+    }
+  }
+
+  /** @method update */
+  async update(
+    username: string,
+    userDto: UserDto,
+  ): Promise<IResultData<Users>> {
+    const data: IResultData<Users> = {
+      statusCode: 404,
+      message: 'User not found',
+    };
+    const user = await this.findUser(username);
+
+    if (user) {
+      const updatedUser = await this.usersModel.findOneAndUpdate(
+        { username },
+        userDto,
+      );
+      data.statusCode = 201;
+      data.message = 'User info updated';
+      data.data = updatedUser;
+      return data;
+    } else {
+      data.error = 'Unable to find user';
+      return data;
     }
   }
 }
