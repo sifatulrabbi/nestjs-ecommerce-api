@@ -32,7 +32,7 @@ This API is an MIT-licensed open source project. If you'd like to join me in thi
 
 - Author - [temujins](https://github.com/temujins)
 - Website - [https://temujins.github.io](https://temujins.github.io)
-- Twitter - [@nestframework](https://twitter.com/sifatul_rabbi)
+- Twitter - [@sifatul_rabbi](https://twitter.com/sifatul_rabbi)
 
 ## License
 
