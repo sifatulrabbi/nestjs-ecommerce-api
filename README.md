@@ -13,14 +13,14 @@ This is an E-Commerce API with modern features. This API is fast and secure. It'
 
 ## Features
 
--   User login
--   Shop creation
--   Products upload
--   Adding new product tags
--   Updating products price and details
--   Getting all uploaded products data
--   Finding products by tags
--   Finding products by category
+- User login
+- Shop creation
+- Products upload
+- Adding new product tags
+- Updating products price and details
+- Getting all uploaded products data
+- Finding products by tags
+- Finding products by category
 
 ## Installation
 
@@ -67,7 +67,39 @@ $ yarn run test:cov
 ```typescript
 /*
  * user login
+ * @route /users/login
+ * @method POST
  */
+
+import axios from 'axios';
+
+interface User {
+  _id: string;
+  username: string;
+  full_name: string;
+  password: string;
+}
+
+interface ILoginData {
+  statusCode: number;
+  message: string;
+  user?: User;
+  error?: string;
+}
+
+const login = async (
+  password: string,
+  username?: string,
+  email?: string,
+): Promise<ILoginData> => {
+  const res = await axios.post(`${url}/user/login`, {
+    username,
+    email,
+    password,
+  });
+
+  const { user } = res.data;
+};
 ```
 
 ```typescript
@@ -138,7 +170,7 @@ $ yarn run test:cov
 
 ```typescript
 /*
- * proceed to payment
+ * checkout
  */
 ```
 
@@ -148,9 +180,9 @@ This API is an MIT-licensed open source project. If you'd like to join me in thi
 
 ## Stay in touch
 
--   Author - [temujins](https://github.com/temujins)
--   Website - [https://temujins.github.io](https://temujins.github.io)
--   Twitter - [@nestframework](https://twitter.com/sifatul_rabbi)
+- Author - [temujins](https://github.com/temujins)
+- Website - [https://temujins.github.io](https://temujins.github.io)
+- Twitter - [@nestframework](https://twitter.com/sifatul_rabbi)
 
 ## License
 
