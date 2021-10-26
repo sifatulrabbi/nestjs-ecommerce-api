@@ -22,6 +22,6 @@ export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(VerifyInputsMiddleware)
-      .forRoutes({ path: 'users', method: RequestMethod.POST });
+      .forRoutes({ path: 'users/sign-up', method: RequestMethod.POST });
   }
 }
