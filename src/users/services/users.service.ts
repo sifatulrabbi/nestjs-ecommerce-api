@@ -4,7 +4,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Users, UsersDocument } from '../schemas/users.schema';
 import { UserDto } from '../dto/users.dto';
 import { genSalt, hash, compare } from 'bcrypt';
-import { ILoginData } from '../interfaces/login-data.interface';
+
+type ILoginData = IResultData<Users>;
+type ISignUpData = IResultData<Users>;
 
 @Injectable()
 export class UsersService {
@@ -28,7 +30,7 @@ export class UsersService {
     if (await compare(password, user.password)) {
       data.statusCode = 201;
       data.message = 'Login successful';
-      data.user = user;
+      data.data = user;
       return data;
     } else {
       data.message =
@@ -37,14 +39,30 @@ export class UsersService {
     }
   }
 
-  async create(userDto: UserDto): Promise<Users> {
-    const hashedPass = await this.hashPassword(userDto.password);
-    userDto.password = hashedPass;
-    const newUser = new this.usersModel(userDto);
+  /** @method signUp */
+  async create(userDto: UserDto): Promise<ISignUpData> {
+    const data: ISignUpData = {
+      statusCode: 500,
+      message: 'Unable to sign up please try again',
+    };
 
-    return await newUser.save();
+    try {
+      const hashedPass = await this.hashPassword(userDto.password);
+      userDto.password = hashedPass;
+      const newUser = new this.usersModel(userDto);
+      const createdUser = await newUser.save();
+
+      data.statusCode = 201;
+      data.data = createdUser;
+      data.message = 'Sign up complete';
+      return data;
+    } catch (err) {
+      data.error = err as string;
+      return data;
+    }
   }
 
+  /** @method login */
   async login(
     password: string,
     username?: string,
