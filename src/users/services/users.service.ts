@@ -26,13 +26,12 @@ export class UsersService {
     }
   }
 
-  private async checkUser(
-    password: string,
-    user?: Users,
-  ): Promise<IResultData<Users>> {
-    const data: IResultData<Users> = {
+  private async checkUser(password: string, user?: Users): IResData<Users> {
+    const data = {
       statusCode: 404,
       message: 'User does not exists please sign up first',
+      data: null,
+      error: '',
     };
     if (!user) return data;
 
@@ -49,10 +48,12 @@ export class UsersService {
   }
 
   /** @method getAllUser */
-  async getAll(): Promise<IResultData<Users[]>> {
-    const data: IResultData<Users[]> = {
+  async getAll(): IResData<Users[]> {
+    const data = {
       statusCode: 201,
       message: 'All users data',
+      data: null,
+      error: '',
     };
 
     data.data = await this.usersModel.find({});
@@ -60,10 +61,12 @@ export class UsersService {
   }
 
   /** @method signUp */
-  async create(userDto: UserDto): Promise<IResultData<Users>> {
-    const data: IResultData<Users> = {
+  async create(userDto: UserDto): IResData<Users> {
+    const data = {
       statusCode: 500,
       message: 'Unable to sign up please try again',
+      data: null,
+      error: '',
     };
 
     try {
@@ -87,7 +90,7 @@ export class UsersService {
     password: string,
     username?: string,
     email?: string,
-  ): Promise<IResultData<Users>> {
+  ): IResData<Users> {
     if (username) {
       const user = await this.usersModel.findOne({ username });
       return this.checkUser(password, user);
@@ -98,13 +101,12 @@ export class UsersService {
   }
 
   /** @method update */
-  async update(
-    username: string,
-    userDto: UserDto,
-  ): Promise<IResultData<Users>> {
-    const data: IResultData<Users> = {
+  async update(username: string, userDto: UserDto): IResData<Users> {
+    const data = {
       statusCode: 404,
       message: 'User not found',
+      data: null,
+      error: '',
     };
     const user = await this.findUser(username);
 

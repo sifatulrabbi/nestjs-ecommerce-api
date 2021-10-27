@@ -1,6 +1,6 @@
-declare interface IResultData<T> {
+declare type IResData<T> = Promise<{
   statusCode: number;
   message: string;
-  data?: T;
   error?: string;
-}
+  data?: T;
+}>;

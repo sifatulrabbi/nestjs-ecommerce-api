@@ -1,4 +1,4 @@
-export class UserDto implements IUser {
+declare interface IUser {
   _id?: string;
   username: string;
   full_name: string;

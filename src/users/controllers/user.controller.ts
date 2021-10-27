@@ -8,17 +8,17 @@ export class UserController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  allUsers(): Promise<IResultData<Users[]>> {
+  allUsers(): IResData<Users[]> {
     return this.usersService.getAll();
   }
 
   @Post('/sign-up')
-  userSignUp(@Body() userDto: UserDto): Promise<IResultData<Users>> {
+  userSignUp(@Body() userDto: UserDto): IResData<Users> {
     return this.usersService.create(userDto);
   }
 
   @Post('/login')
-  userLogin(@Body() userDto: UserDto): Promise<IResultData<Users>> {
+  userLogin(@Body() userDto: UserDto): IResData<Users> {
     return this.usersService.login(
       userDto.password,
       userDto.username,
@@ -30,7 +30,7 @@ export class UserController {
   userInfoUpdate(
     @Param('username') username: string,
     @Body() userDto: UserDto,
-  ): Promise<IResultData<Users>> {
+  ): IResData<Users> {
     return this.usersService.update(username, userDto);
   }
 }
