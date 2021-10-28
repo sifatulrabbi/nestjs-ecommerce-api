@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { IShop } from '../../types/Shop';
 
 export type ShopDocument = IShop & mongoose.Document;
 
