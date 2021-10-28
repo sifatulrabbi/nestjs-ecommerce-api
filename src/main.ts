@@ -2,13 +2,13 @@ import * as express from 'express';
 import config from './config/config';
 import { connectDb } from './db/connectDb';
 import * as cors from 'cors';
-import router from './routes/router';
+import controllers from './controllers/controllers.module';
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use('/api/v1', router);
+app.use('/api/v1', controllers);
 
 app.listen(config.port, () => {
   connectDb();
