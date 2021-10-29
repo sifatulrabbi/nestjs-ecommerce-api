@@ -11,6 +11,6 @@ app.use(cors());
 app.use('/api/v1', controllers);
 
 app.listen(config.port, () => {
-  connectDb();
-  console.log(`server is running at port ${config.port}`);
+    connectDb();
+    console.log(`server is running at port ${config.port}`);
 });
