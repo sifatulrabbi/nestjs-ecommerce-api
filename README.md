@@ -7,14 +7,14 @@ This is an E-Commerce API with modern features. This API is fast and secure. It'
 
 ## Features
 
-- User login
-- Shop creation
-- Products upload
-- Adding new product tags
-- Updating products price and details
-- Getting all uploaded products data
-- Finding products by tags
-- Finding products by category
+-   User login
+-   Shop creation
+-   Products upload
+-   Adding new product tags
+-   Updating products price and details
+-   Getting all uploaded products data
+-   Finding products by tags
+-   Finding products by category
 
 _Use this API ? [Goto docs](./documentation.md)_
 
@@ -24,9 +24,9 @@ This API is an MIT-licensed open source project. If you'd like to join me in thi
 
 ## Stay in touch
 
-- Author - [temujins](https://github.com/temujins)
-- Website - [https://temujins.github.io](https://temujins.github.io)
-- Twitter - [@sifatul_rabbi](https://twitter.com/sifatul_rabbi)
+-   Author - [temujins](https://github.com/temujins)
+-   Website - [https://temujins.github.io](https://temujins.github.io)
+-   Twitter - [@sifatul_rabbi](https://twitter.com/sifatul_rabbi)
 
 ## License
 

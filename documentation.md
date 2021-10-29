@@ -30,18 +30,18 @@ $ yarn run test
 ```typescript
 /** user interface */
 interface User {
-  _id: string;
-  username: string;
-  full_name: string;
-  password: string;
+    _id: string;
+    username: string;
+    full_name: string;
+    password: string;
 }
 
 /** Login data interface */
 interface IResultData<T> {
-  statusCode: number;
-  message: string;
-  data?: T;
-  error?: string;
+    statusCode: number;
+    message: string;
+    data?: T;
+    error?: string;
 }
 ```
 
@@ -59,15 +59,15 @@ _In these examples I'm using axios feel free use any technologies you want._
 import axios from 'axios';
 
 const userSignUp = async (user: User): Promise<User> => {
-  const url = 'https://exp-e-commerce-api.vercel.app/api/v1/users/sign-up';
-  const res = await axios.post(url, {
-    username,
-    email,
-    password,
-  });
+    const url = 'https://exp-e-commerce-api.vercel.app/api/v1/users/sign-up';
+    const res = await axios.post(url, {
+        username,
+        email,
+        password,
+    });
 
-  const { data } = res.data;
-  return data;
+    const { data } = res.data;
+    return data;
 };
 ```
 
@@ -83,18 +83,18 @@ const userSignUp = async (user: User): Promise<User> => {
 import axios from 'axios';
 
 const userLogin = async (
-  password: string,
-  username?: string,
-  email?: string,
+    password: string,
+    username?: string,
+    email?: string,
 ): Promise<User> => {
-  const uri = 'https://exp-e-commerce-api.vercel.app/api/v1/users/login';
-  const res = await axios.post(url, {
-    username,
-    email,
-    password,
-  });
+    const uri = 'https://exp-e-commerce-api.vercel.app/api/v1/users/login';
+    const res = await axios.post(url, {
+        username,
+        email,
+        password,
+    });
 
-  const { data } = res.data;
-  return data;
+    const { data } = res.data;
+    return data;
 };
 ```
