@@ -48,7 +48,5 @@ router.put('/:id', validateUserData, userAuth, provider.update);
  */
 router.delete('/:id', userAuth, provider.delete);
 
-router.get('/test', userAuth, provider.test);
-
 userController.use('/user', router);
 export default userController;

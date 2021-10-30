@@ -11,14 +11,12 @@ export const userAuth = async (
         const { username, password } = req.body;
         const user = await userModel.findOne({ name: username });
 
-        const auth = await bcrypt.compare(password, user.password);
-        if (!auth) {
-            res.status(500).json({ message: 'incorrect username or password' });
-            return;
+        if (await bcrypt.compare(password, user.password)) {
+            res.locals.user = user;
+            next();
+        } else {
+            res.status(404).json({ message: 'incorrect username or password' });
         }
-
-        res.locals.user = user;
-        next();
     } catch (err) {
         res.status(500).json({ message: 'internal error', error: err });
     }

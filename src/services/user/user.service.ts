@@ -64,15 +64,15 @@ export class UserService {
 
     async login(req: Request, res: Response): Promise<void> {
         try {
-        } catch (err) {}
+            const user = res.locals.user;
+            res.status(201).json({ message: 'success', data: user });
+        } catch (err) {
+            res.status(500).json({ message: 'unable to find', error: err });
+        }
     }
 
     async delete(req: Request, res: Response): Promise<void> {
         try {
         } catch (err) {}
-    }
-
-    async test(req: Request, res: Response): Promise<void> {
-        res.status(201).json({ user: res.locals.user });
     }
 }
