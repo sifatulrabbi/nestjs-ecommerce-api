@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { IShop } from '../../types/Shop';
+import { IShop } from 'globals';
 
 export type ShopDocument = IShop & mongoose.Document;
 
@@ -26,6 +26,7 @@ const shopSchema = new mongoose.Schema<IShop>(
 
         ownerId: {
             type: String,
+            required: true,
         },
     },
     { timestamps: true },

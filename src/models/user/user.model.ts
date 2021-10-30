@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
-import { IUser } from '../../types/User';
+import { IUser } from 'globals';
 
-const userSchema = new mongoose.Schema<IUser>(
+const usersSchema = new mongoose.Schema<IUser>(
     {
         name: {
             type: String,
@@ -31,6 +31,6 @@ const userSchema = new mongoose.Schema<IUser>(
     { timestamps: true },
 );
 
-const userModel = mongoose.model<IUser>('user', userSchema);
+const usersModel = mongoose.model<IUser>('user', usersSchema);
 
-export default userModel;
+export default usersModel;
