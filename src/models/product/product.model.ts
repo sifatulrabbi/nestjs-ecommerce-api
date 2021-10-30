@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { IProduct } from '../../types/Product';
+import { IProduct } from 'globals';
 
 export type ProductDocument = IProduct & mongoose.Document;
 
