@@ -1,27 +1,9 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
-import { UserController } from './controllers/user.controller';
+import { Module } from '@nestjs/common';
+import { UsersController } from './controllers/users.controller';
 import { UsersService } from './services/users.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { UsersSchema } from './schemas/users.schema';
-import { VerifyInputsMiddleware } from './middlewares/verify-inputs.middleware';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: 'users', schema: UsersSchema }]),
-    VerifyInputsMiddleware,
-  ],
-  controllers: [UserController],
-  providers: [UsersService],
+    controllers: [UsersController],
+    providers: [UsersService],
 })
-export class UsersModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(VerifyInputsMiddleware)
-      .forRoutes({ path: 'users/sign-up', method: RequestMethod.POST });
-  }
-}
+export class UsersModule {}

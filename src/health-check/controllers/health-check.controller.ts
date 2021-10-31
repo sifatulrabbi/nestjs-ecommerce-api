@@ -3,25 +3,25 @@ import { HealthCheckService } from '../services/health-check.service';
 
 @Controller('health')
 export class HealthCheckController {
-  constructor(private readonly healthCheckService: HealthCheckService) {}
+    constructor(private readonly healthCheckService: HealthCheckService) {}
 
-  @Get()
-  checkGet(): string {
-    return this.healthCheckService.getTest();
-  }
+    @Get()
+    checkGet(): string {
+        return this.healthCheckService.getTest();
+    }
 
-  @Post()
-  checkPost(): string {
-    return this.healthCheckService.postTest();
-  }
+    @Post()
+    checkPost(): string {
+        return this.healthCheckService.postTest();
+    }
 
-  @Put()
-  checkPut(): string {
-    return this.healthCheckService.putTest();
-  }
+    @Put()
+    checkPut(): string {
+        return this.healthCheckService.putTest();
+    }
 
-  @Delete()
-  checkDelete(): string {
-    return this.healthCheckService.deleteTest();
-  }
+    @Delete()
+    checkDelete(): string {
+        return this.healthCheckService.deleteTest();
+    }
 }

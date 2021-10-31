@@ -11,18 +11,18 @@
 
 This is an E-Commerce API with modern features. This API is fast and secure. It's built with TypeScript, nextjs and MongoDB. This API can be used with any front-end frameworks (Angular, React, Vue). To use this API either **contact me** for an API secret or **clone** this repo star this repository before cloning or forking.
 
+[Goto docs](./documentation.md)
+
 ## Features
 
-- User login
-- Shop creation
-- Products upload
-- Adding new product tags
-- Updating products price and details
-- Getting all uploaded products data
-- Finding products by tags
-- Finding products by category
-
-_Use this API ? [Goto docs](./documentation.md)_
+-   User login
+-   Shop creation
+-   Products upload
+-   Adding new product tags
+-   Updating products price and details
+-   Getting all uploaded products data
+-   Finding products by tags
+-   Finding products by category
 
 ## Support
 
@@ -30,9 +30,9 @@ This API is an MIT-licensed open source project. If you'd like to join me in thi
 
 ## Stay in touch
 
-- Author - [temujins](https://github.com/temujins)
-- Website - [https://temujins.github.io](https://temujins.github.io)
-- Twitter - [@sifatul_rabbi](https://twitter.com/sifatul_rabbi)
+-   Author - [temujins](https://github.com/temujins)
+-   Website - [https://temujins.github.io](https://temujins.github.io)
+-   Twitter - [@sifatul_rabbi](https://twitter.com/sifatul_rabbi)
 
 ## License
 
