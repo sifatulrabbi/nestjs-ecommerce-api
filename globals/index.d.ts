@@ -16,7 +16,7 @@ export declare interface IShop {
     ownerId: string;
     categories?: string[];
     desc?: string;
-    items?: string[];
+    products?: string[];
     coverURL?: string;
 }
 
@@ -29,7 +29,7 @@ export declare interface IProduct {
     _id?: string;
     name: string;
     desc: string;
-    price: string;
+    price: number;
     photoURL?: string;
     shopId: string;
     category: string;

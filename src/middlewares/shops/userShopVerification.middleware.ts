@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { IShop } from 'globals';
-import shopModel from '../models/shop/shop.model';
+import shopsModel from '../../models/shops/shops.model';
 
 export const userShopVerification = async (
     req: Request,
@@ -8,7 +8,7 @@ export const userShopVerification = async (
     next: NextFunction,
 ): Promise<void> => {
     try {
-        const shop: IShop = await shopModel.findById(req.params.shopid);
+        const shop: IShop = await shopsModel.findById(req.params.shopid);
         if (!shop) {
             res.status(404).json({ error: 'shop not found' });
             return;
