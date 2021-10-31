@@ -1,5 +1,3 @@
-import { Response } from 'express';
-
 export declare interface IUser {
     _id?: string;
     name: string;

@@ -1,9 +1,11 @@
-<h1 align="center" style="font-weight: bold">EXP Online Shop API</h1>
+<h1 align="center" style="font-weight: bold">EXP E-Commerce API</h1>
 <br/>
 
 ## Description
 
-This is an E-Commerce API with modern features. This API is fast and secure. It's built with TypeScript, nextjs and MongoDB. This API can be used with any front-end frameworks (Angular, React, Vue). To use this API either **contact me** for an API secret or **clone** this repo star this repository before cloning or forking.
+This is an E-Commerce API with modern features. This API is fast and secure. It's built with TypeScript and MongoDB. This API can be used with any front-end frameworks (Angular, React, Vue). To use this API either **contact me** for an API secret or **clone** this repo star this repository before cloning or forking.
+
+[Read documentation](./documentation.md)
 
 ## Features
 
@@ -15,8 +17,6 @@ This is an E-Commerce API with modern features. This API is fast and secure. It'
 -   Getting all uploaded products data
 -   Finding products by tags
 -   Finding products by category
-
-_Use this API ? [Goto docs](./documentation.md)_
 
 ## Support
 
@@ -30,5 +30,4 @@ This API is an MIT-licensed open source project. If you'd like to join me in thi
 
 ## License
 
-Nest is [MIT licensed](LICENSE).  
-This project is also [MIT licensed](LICENSE).
+This project is [MIT licensed]().

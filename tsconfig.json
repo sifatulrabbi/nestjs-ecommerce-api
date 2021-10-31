@@ -6,7 +6,7 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
-        "target": "ES2015",
+        "target": "es6",
         "sourceMap": true,
         "outDir": "./dist",
         "baseUrl": "./",
