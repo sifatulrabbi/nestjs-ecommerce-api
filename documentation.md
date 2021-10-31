@@ -28,20 +28,47 @@ $ yarn run test
 ## API interfaces
 
 ```typescript
-/** user interface */
-interface User {
-    _id: string;
-    username: string;
-    full_name: string;
+interface IUser {
+    _id?: string;
+    name: string;
+    fullName: string;
+    email: string;
     password: string;
+    photoURL?: string;
+    shopId?: string;
+    shopName?: string;
 }
 
-/** Login data interface */
-interface IResultData<T> {
-    statusCode: number;
-    message: string;
-    data?: T;
-    error?: string;
+interface IShop {
+    _id?: string;
+    name: string;
+    owner: string;
+    ownerId: string;
+    categories?: string[];
+    desc?: string;
+    items?: string[];
+    coverURL?: string;
+}
+
+interface ICategory {
+    _id?: string;
+    name: string;
+}
+
+interface IProduct {
+    _id?: string;
+    name: string;
+    desc: string;
+    price: string;
+    photoURL?: string;
+    shopId: string;
+    category: string;
+    tags: string[];
+}
+
+interface ITag {
+    _id?: string;
+    name: string;
 }
 ```
 
@@ -50,51 +77,78 @@ _In these examples I'm using axios feel free use any technologies you want._
 ## User sign up
 
 ```typescript
-/*
- * @route /users/sign-up
- * @method POST
- * @returns user data
+import * as axios from 'axios';
+/**
+ * @body { user: { name, fullName, email, password } }
  */
-
-import axios from 'axios';
-
-const userSignUp = async (user: User): Promise<User> => {
-    const url = 'https://exp-e-commerce-api.vercel.app/api/v1/users/sign-up';
-    const res = await axios.post(url, {
-        username,
-        email,
-        password,
-    });
-
-    const { data } = res.data;
-    return data;
-};
+const user: IUser = await axios.post('url/users', {
+    user: { name, fullName, email, password },
+});
 ```
 
 ## User login
 
 ```typescript
-/*
- * @route /users/login
- * @method POST
- * @returns login data
+/**
+ * @body { username, password }
+ * @redirects url/users/:userid
  */
+const user: IUser = await axios.post('url/users/login', { username, password });
+```
 
-import axios from 'axios';
+## Update user info
 
-const userLogin = async (
-    password: string,
-    username?: string,
-    email?: string,
-): Promise<User> => {
-    const uri = 'https://exp-e-commerce-api.vercel.app/api/v1/users/login';
-    const res = await axios.post(url, {
-        username,
-        email,
-        password,
-    });
+```typescript
+/**
+ * @body { password, user: { name, fullName, email }, newPassword }
+ */
+const user: IUser = await axios.post(`url/users/${userId}`, {
+    password,
+    user: { name, fullName, email },
+    newPassword,
+});
+```
 
-    const { data } = res.data;
-    return data;
-};
+## Delete user
+
+```typescript
+/**
+ * @body { username, password }
+ */
+await axios.delete(`url/users/${userId}`, { username, password });
+```
+
+## Create shop
+
+```typescript
+/**
+ * @body { username, password, shop: { name, description, categories } }
+ */
+const shop: IShop = await axios.post(`url/shops`, {
+    username,
+    password,
+    shop: { name, desc, categories },
+});
+```
+
+## Update shop info
+
+```typescript
+/**
+ * @body { username, password, shop: { name, description, categories } }
+ */
+const shop: IShop = await axios.post(`url/shops/${shopId}`, {
+    username,
+    password,
+    shop: { name, desc, categories },
+});
+```
+
+## Delete shop
+
+```typescript
+/**
+ * @body { username, password }
+ */
+await axios.delete(`url/shops/${shopId}`, { username, password });
 ```

@@ -54,7 +54,7 @@ export class UsersService {
             }
 
             const updatedUser = await usersModel.findByIdAndUpdate(
-                req.params.id,
+                req.params.userid,
                 user,
                 { new: true },
             );
@@ -83,7 +83,7 @@ export class UsersService {
 
     async delete(req: Request, res: Response): Promise<void> {
         try {
-            await usersModel.findByIdAndRemove(res.locals.user._id);
+            await usersModel.findByIdAndRemove(req.params.userid);
             res.status(201).json({ message: 'user deleted' });
         } catch (err) {
             res.status(500).json({

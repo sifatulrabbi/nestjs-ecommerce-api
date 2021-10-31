@@ -1,6 +1,11 @@
 import * as express from 'express';
 import { ShopService } from '../../services/shop/shop.service';
-import { userAuth, validateShopData } from '../../middlewares';
+import {
+    addShopToUser,
+    userShopVerification,
+    userVerification,
+    validateShopData,
+} from '../../middlewares';
 
 const shopController = express();
 const router = express.Router();
@@ -18,28 +23,45 @@ router.get('/', provider.getShops);
  * @route /shops
  * @middlewares none
  */
-router.get('/:id', provider.getAShop);
+router.get('/:shopid', provider.getAShop);
 
 /**
  * @method POST create a shop
  * @route /shops
- * @middlewares userAuth, validateShopData
+ * @middlewares userVerification, validateShopData
  */
-router.post('/', userAuth, validateShopData, provider.createShop);
+router.post(
+    '/',
+    userVerification,
+    validateShopData,
+    provider.createShop,
+    addShopToUser,
+);
 
 /**
  * @method PUT update shop
- * @route /shops/:id
- * @middlewares userAuth, validateShopData
+ * @route /shops/:shopid
+ * @middlewares userVerification, validateShopData
  */
-router.put('/:id', userAuth, validateShopData, provider.updateShop);
+router.put(
+    '/:shopid',
+    userVerification,
+    userShopVerification,
+    validateShopData,
+    provider.updateShop,
+);
 
 /**
  * @method DELETE delete a shop
- * @route /shops/:id
- * @middlewares userAuth
+ * @route /shops/:shopid
+ * @middlewares userVerification
  */
-router.delete('/:id', userAuth, provider.deleteShop);
+router.delete(
+    '/:shopid',
+    userVerification,
+    userShopVerification,
+    provider.deleteShop,
+);
 
 shopController.use('/shops', router);
 export default shopController;

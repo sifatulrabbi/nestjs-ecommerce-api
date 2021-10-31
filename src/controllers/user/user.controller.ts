@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { UsersService } from '../../services/user/user.service';
-import { validateUserData, userAuth } from '../../middlewares';
+import { validateUserData, userVerification } from '../../middlewares';
 
 const usersController = express();
 const router = express.Router();
@@ -15,10 +15,10 @@ router.get('/', provider.getAll);
 
 /**
  * @method GET
- * @route /user/:id
+ * @route /user/:userid
  * @middlewares none
  */
-router.get('/:id', provider.getUser);
+router.get('/:userid', provider.getUser);
 
 /**
  * @method POST
@@ -30,23 +30,23 @@ router.post('/sign-up', validateUserData, provider.create);
 /**
  * @method POST
  * @route /user/login
- * @middlewares userAuth
+ * @middlewares userVerification
  */
-router.post('/login', userAuth, provider.login);
+router.post('/login', userVerification, provider.login);
 
 /**
  * @method PUT
- * @route /user/:id
- * @middlewares validateUserData, userAuth
+ * @route /user/:userid
+ * @middlewares validateUserData, userVerification
  */
-router.put('/:id', validateUserData, userAuth, provider.update);
+router.put('/:userid', userVerification, validateUserData, provider.update);
 
 /**
  * @method DELETE
- * @route /user/:id
- * @middlewares userAuth
+ * @route /user/:userid
+ * @middlewares userVerification
  */
-router.delete('/:id', userAuth, provider.delete);
+router.delete('/:userid', userVerification, provider.delete);
 
 usersController.use('/users', router);
 export default usersController;

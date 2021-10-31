@@ -1,7 +1,5 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import shopModel from '../../models/shop/shop.model';
-import userModel from '../../models/user/user.model';
-import * as bcrypt from 'bcrypt';
 import { IShop } from 'globals';
 
 export class ShopService {
@@ -23,7 +21,11 @@ export class ShopService {
         }
     }
 
-    async createShop(req: Request, res: Response): Promise<void> {
+    async createShop(
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ): Promise<void> {
         try {
             const user = res.locals.user;
             const shop = req.body.shop;
@@ -33,7 +35,8 @@ export class ShopService {
                 ownerId: user._id,
             });
             const createdShop = await newShop.save();
-            res.status(201).json({ message: 'success', data: createdShop });
+            res.locals.shop = createdShop;
+            next();
         } catch (err) {
             res.status(500).json({ error: err });
         }
