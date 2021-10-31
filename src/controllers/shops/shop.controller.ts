@@ -1,7 +1,9 @@
 import * as express from 'express';
-import { ShopService } from '../../services/shop/shop.service';
+import { ShopsService } from '../../services/shops/shops.service';
 import {
+    addProductToShop,
     addShopToUser,
+    addToProducts,
     userShopVerification,
     userVerification,
     validateShopData,
@@ -9,7 +11,7 @@ import {
 
 const shopController = express();
 const router = express.Router();
-const provider = new ShopService();
+const provider = new ShopsService();
 
 /**
  * @method GET all shops
@@ -62,6 +64,13 @@ router.delete(
     userShopVerification,
     provider.deleteShop,
 );
+
+/**
+ * @method POST update shop
+ * @route /shops/:shopid
+ * @middlewares userVerification, validateShopData
+ */
+router.post('/:shopid/products', addToProducts, addProductToShop);
 
 shopController.use('/shops', router);
 export default shopController;

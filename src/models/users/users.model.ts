@@ -1,38 +1,36 @@
 import * as mongoose from 'mongoose';
-import { IProduct } from 'globals';
+import { IUser } from 'globals';
 
-export type ProductDocument = IProduct & mongoose.Document;
-
-const productSchema = new mongoose.Schema<IProduct>(
+const usersSchema = new mongoose.Schema<IUser>(
     {
         name: {
             type: String,
             required: true,
             unique: true,
         },
-        desc: {
-            type: String,
-        },
-        price: {
+        fullName: {
             type: String,
             required: true,
         },
-        photoURL: {
+        email: {
             type: String,
+            required: true,
+            unique: true,
+        },
+        password: {
+            type: String,
+            required: true,
         },
         shopId: {
             type: String,
-            required: true,
         },
-        category: {
+        shopName: {
             type: String,
-            required: true,
         },
-        tags: Array,
     },
     { timestamps: true },
 );
 
-const productModel = mongoose.model<ProductDocument>('product', productSchema);
+const usersModel = mongoose.model<IUser>('users', usersSchema);
 
-export default productModel;
+export default usersModel;

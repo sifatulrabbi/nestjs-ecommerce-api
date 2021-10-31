@@ -1,0 +1,52 @@
+### get all shops ###
+GET  http://localhost:5000/api/v1/shops
+
+### create shop ###
+POST  http://localhost:5000/api/v1/shops
+Content-Type: application/json
+
+{
+    "username": "dummy-user-2",
+    "password": "password",
+    "shop": {
+        "name": "dummy user2 shop",
+        "desc": "dummy user2 shop description",
+        "categories": ["mobile", "tea"]
+    }
+}
+
+### add products to shop ###
+POST  http://localhost:5000/api/v1/shops/617e3163eab1902e0b563c95/add
+Content-Type: application/json
+
+{
+    "product": {
+        "name": "dummy product 1",
+        "desc": "dummy product 1 description",
+        "price": 80,
+        "category": "mobile",
+        "tags": ["mobile", "tea"]
+    }
+}
+
+### create user ###
+POST http://localhost:5000/api/v1/users/sign-up
+Content-type: application/json
+
+{
+    "user": {
+        "name": "dummy-user-2",
+        "fullName": "dummy user2 name",
+        "email": "dummy.user2@email.com",
+        "password": "password"
+    }
+}
+
+### user login ###
+POST http://localhost:5000/api/v1/users/login
+Content-type: application/json
+
+{
+    "username": "dummy-user-2",
+    "password": "password"
+}

@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose';
 import { IShop } from 'globals';
 
-export type ShopDocument = IShop & mongoose.Document;
+export type ShopsDocument = IShop & mongoose.Document;
 
-const shopSchema = new mongoose.Schema<IShop>(
+const shopsSchema = new mongoose.Schema<IShop>(
     {
         name: {
             type: String,
@@ -20,9 +20,9 @@ const shopSchema = new mongoose.Schema<IShop>(
             type: String,
         },
 
-        categories: Array,
+        categories: [],
 
-        items: Array,
+        products: [],
 
         ownerId: {
             type: String,
@@ -32,6 +32,6 @@ const shopSchema = new mongoose.Schema<IShop>(
     { timestamps: true },
 );
 
-const shopModel = mongoose.model<ShopDocument>('shop', shopSchema);
+const shopsModel = mongoose.model<ShopsDocument>('shops', shopsSchema);
 
-export default shopModel;
+export default shopsModel;
