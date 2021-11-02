@@ -1,12 +1,10 @@
 import * as express from 'express';
 import { ShopsService } from '../../services/shops/shops.service';
 import {
-    addProductToShop,
-    addShopToUser,
-    addToProducts,
-    userShopVerification,
-    userVerification,
-    validateShopData,
+  addShopToUser,
+  userShopVerification,
+  userVerification,
+  validateShopData,
 } from '../../middlewares';
 
 const shopController = express();
@@ -33,11 +31,11 @@ router.get('/:shopid', provider.getAShop);
  * @middlewares userVerification, validateShopData
  */
 router.post(
-    '/',
-    userVerification,
-    validateShopData,
-    provider.createShop,
-    addShopToUser,
+  '/',
+  userVerification,
+  validateShopData,
+  provider.createShop,
+  addShopToUser,
 );
 
 /**
@@ -46,11 +44,11 @@ router.post(
  * @middlewares userVerification, validateShopData
  */
 router.put(
-    '/:shopid',
-    userVerification,
-    userShopVerification,
-    validateShopData,
-    provider.updateShop,
+  '/:shopid',
+  userVerification,
+  userShopVerification,
+  validateShopData,
+  provider.updateShop,
 );
 
 /**
@@ -59,18 +57,11 @@ router.put(
  * @middlewares userVerification
  */
 router.delete(
-    '/:shopid',
-    userVerification,
-    userShopVerification,
-    provider.deleteShop,
+  '/:shopid',
+  userVerification,
+  userShopVerification,
+  provider.deleteShop,
 );
-
-/**
- * @method POST update shop
- * @route /shops/:shopid
- * @middlewares userVerification, validateShopData
- */
-router.post('/:shopid/products', addToProducts, addProductToShop);
 
 shopController.use('/shops', router);
 export default shopController;
