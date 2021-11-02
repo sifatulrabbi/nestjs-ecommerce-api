@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { HealthService } from '../../services/health/health.service';
+import { HealthService } from '../../services';
 
 const healthController = express();
 const router = express.Router();

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import shopsModel from '../../models/shops/shops.model';
+import { shopsModel } from '../../models';
 import { IShop } from 'src/typings';
 
 export class ShopsService {
