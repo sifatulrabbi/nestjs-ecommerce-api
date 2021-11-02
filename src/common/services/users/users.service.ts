@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import usersModel from '../../models/users/users.model';
+import { usersModel } from '../../models';
 import { IUser } from 'src/typings';
 import * as bcrypt from 'bcrypt';
 

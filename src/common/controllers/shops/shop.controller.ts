@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { ShopsService } from '../../services/shops/shops.service';
+import { ShopsService } from '../../services';
 import {
   addShopToUser,
   userShopVerification,

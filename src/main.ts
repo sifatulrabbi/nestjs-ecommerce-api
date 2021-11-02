@@ -1,8 +1,8 @@
 import * as express from 'express';
-import config from './config/config';
-import { connectDb } from './db/connectDb';
+import { config } from './config';
+import { connectDb } from './db';
 import * as cors from 'cors';
-import controllers from './controllers/controllers.module';
+import { controllers } from './common';
 
 const app = express();
 

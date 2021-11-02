@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import usersModel from '../../models/users/users.model';
+import { usersModel } from '../../models';
 import * as bcrypt from 'bcrypt';
 
 export const userVerification = async (

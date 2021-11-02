@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { UsersService } from '../../services/users/users.service';
+import { UsersService } from '../../services';
 import { validateUserData, userVerification } from '../../middlewares';
 
 const usersController = express();

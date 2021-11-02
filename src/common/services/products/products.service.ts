@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import productsModel from '../../models/products/products.model';
+import { NextFunction, Request, Response } from 'express';
+import { productsModel } from '../../models';
 
 export class ProductsService {
   async getAll(req: Request, res: Response): Promise<void> {
@@ -30,9 +30,18 @@ export class ProductsService {
     }
   }
 
-  async create(req: Request, res: Response): Promise<void> {
+  async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-    } catch (err) {}
+      const newProduct = new productsModel(req.body.product);
+      const createdProduct = await newProduct.save();
+
+      res.locals.product = createdProduct;
+      res.locals.message = ['added product'];
+
+      next();
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
   }
 
   async remove(req: Request, res: Response): Promise<void> {
