@@ -1,18 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
-import { IUser } from 'globals';
+import { IUser } from 'src/typings';
 
 export const validateUserData = (
-    req: Request,
-    res: Response,
-    next: NextFunction,
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ): void => {
-    const user: IUser = req.body.user;
-    if (user) {
-        next();
-    } else {
-        res.status(404).json({
-            message: 'required fields: name, email, password, fullName',
-            error: 'incorrect credentials',
-        });
-    }
+  const user: IUser = req.body.user;
+  if (user) {
+    next();
+  } else {
+    res.status(404).json({
+      message: 'required fields: name, email, password, fullName',
+      error: 'incorrect credentials',
+    });
+  }
 };
