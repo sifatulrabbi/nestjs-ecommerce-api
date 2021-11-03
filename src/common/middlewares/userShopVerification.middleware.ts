@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { IShop } from 'src/typings';
-import { shopsModel } from '../../models';
+import { shopsModel } from '../models';
 
 export const userShopVerification = async (
   req: Request,

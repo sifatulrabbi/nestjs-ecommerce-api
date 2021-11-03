@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { usersModel } from '../../models';
+import { usersModel } from '../models';
 import { IShop } from 'src/typings';
 
 export const addShopToUser = async (

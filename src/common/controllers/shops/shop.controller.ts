@@ -3,7 +3,7 @@ import { ShopsService } from '../../services';
 import {
   addShopToUser,
   userShopVerification,
-  userVerification,
+  userAuth,
   validateShopData,
 } from '../../middlewares';
 
@@ -28,11 +28,11 @@ router.get('/:shopid', provider.getAShop);
 /**
  * @method POST create a shop
  * @route /shops
- * @middlewares userVerification, validateShopData
+ * @middlewares userAuth, validateShopData
  */
 router.post(
   '/',
-  userVerification,
+  userAuth,
   validateShopData,
   provider.createShop,
   addShopToUser,
@@ -41,11 +41,11 @@ router.post(
 /**
  * @method PUT update shop
  * @route /shops/:shopid
- * @middlewares userVerification, validateShopData
+ * @middlewares userAuth, validateShopData
  */
 router.put(
   '/:shopid',
-  userVerification,
+  userAuth,
   userShopVerification,
   validateShopData,
   provider.updateShop,
@@ -54,14 +54,9 @@ router.put(
 /**
  * @method DELETE delete a shop
  * @route /shops/:shopid
- * @middlewares userVerification
+ * @middlewares userAuth
  */
-router.delete(
-  '/:shopid',
-  userVerification,
-  userShopVerification,
-  provider.deleteShop,
-);
+router.delete('/:shopid', userAuth, userShopVerification, provider.deleteShop);
 
 shopController.use('/shops', router);
 export default shopController;

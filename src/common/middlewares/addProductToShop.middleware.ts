@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { IProduct } from 'src/typings';
-import { shopsModel } from '../../models';
+import { shopsModel } from '../models';
 
 export const addProductToShop = async (
   req: Request,
