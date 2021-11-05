@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { IUser } from 'src/typings';
 
-export const validateUserData = (
+export const validateUserData = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): void => {
+): Promise<void> => {
   const user: IUser = req.body.user;
-  if (user) {
+  if (user.name && user.fullName && user.password && user.email) {
     next();
   } else {
     res.status(404).json({

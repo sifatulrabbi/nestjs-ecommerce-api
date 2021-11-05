@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { IProduct } from 'src/typings';
 
 export const validateProductData = (
   req: Request,
@@ -7,7 +8,7 @@ export const validateProductData = (
 ) => {
   try {
     const errors: string[] = [];
-    const product = req.body.product;
+    const product: IProduct = req.body.product;
 
     if (!req.body.product) {
       errors.push('add products');
@@ -27,8 +28,8 @@ export const validateProductData = (
       if (!product.tags) {
         errors.push('Tags are required');
       }
-      if (!product.shopId && typeof product.shopId !== 'string') {
-        errors.push('Shop id is required');
+      if (!res.locals.shop) {
+        errors.push('shop not specified');
       }
     }
 

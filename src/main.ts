@@ -2,15 +2,20 @@ import * as express from 'express';
 import { config } from './config';
 import { connectDb } from './db';
 import * as cors from 'cors';
-import { controllers } from './common';
+import { controllers, loggerMiddleware } from './common';
 
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
+
+app.all('/api/v1/*', loggerMiddleware);
 app.use('/api/v1', controllers);
 
-app.listen(config.port, () => {
-  connectDb();
-  console.log(`server is running at port ${config.port}`);
-});
+(function (port: number): void {
+  app.listen(port, () => {
+    connectDb();
+    console.log(`server is running at port ${port}`);
+  });
+})(config.port);

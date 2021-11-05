@@ -14,7 +14,7 @@ export class ShopsService {
 
   async getAShop(req: Request, res: Response): Promise<void> {
     try {
-      const shop = await shopsModel.findById(req.params.id);
+      const shop = await shopsModel.findById(req.params.shopid);
       res.status(201).json({ message: 'success', data: shop });
     } catch (err) {
       res.status(500).json({ error: err });
