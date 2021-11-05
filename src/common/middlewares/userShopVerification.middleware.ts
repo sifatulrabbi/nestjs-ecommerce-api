@@ -1,6 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { IShop } from 'src/typings';
-import { shopsModel } from '../models';
 
 export const userShopVerification = async (
   req: Request,
@@ -8,16 +6,10 @@ export const userShopVerification = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const shop: IShop = await shopsModel.findById(req.params.shopid);
-    if (!shop) {
-      res.status(404).json({ error: 'shop not found' });
-      return;
-    }
-
-    if (shop.ownerId === res.locals.user._id) {
+    if ((res.locals.user.shopId, req.params.shopid)) {
       next();
     } else {
-      res.status(404).json({ message: "user and shop didn't match" });
+      res.status(401).json({ message: "user and shop didn't match" });
     }
   } catch (err) {
     res.status(500).json({ message: err });

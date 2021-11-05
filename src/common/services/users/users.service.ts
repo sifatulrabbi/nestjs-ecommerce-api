@@ -30,7 +30,6 @@ export class UsersService {
       const newUser = new usersModel({ ...user, password: hashedPass });
       const createdUser = await newUser.save();
 
-      res.locals.user = user;
       res.status(201).json({
         message: 'user created',
         data: createdUser,

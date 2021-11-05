@@ -8,10 +8,7 @@ export const userAuth = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const user = await checkUser({
-      username: req.body.username,
-      password: req.body.password,
-    });
+    const user = await checkUser(req.body.username, req.body.password);
 
     res.locals.user = user;
 
