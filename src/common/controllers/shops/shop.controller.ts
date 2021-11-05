@@ -9,21 +9,21 @@ import {
 
 const shopController = express();
 const router = express.Router();
-const provider = new ShopsService();
+const shopsService = new ShopsService();
 
 /**
  * @method GET all shops
  * @route /shops
  * @middlewares none
  */
-router.get('/', provider.getShops);
+router.get('/', shopsService.getShops);
 
 /**
  * @method GET get a shop
  * @route /shops
  * @middlewares none
  */
-router.get('/:shopid', provider.getAShop);
+router.get('/:shopid', shopsService.getAShop);
 
 /**
  * @method POST create a shop
@@ -34,7 +34,7 @@ router.post(
   '/',
   userAuth,
   validateShopData,
-  provider.createShop,
+  shopsService.createShop,
   addShopToUser,
 );
 
@@ -48,7 +48,7 @@ router.put(
   userAuth,
   userShopVerification,
   validateShopData,
-  provider.updateShop,
+  shopsService.updateShop,
 );
 
 /**
@@ -56,7 +56,43 @@ router.put(
  * @route /shops/:shopid
  * @middlewares userAuth
  */
-router.delete('/:shopid', userAuth, userShopVerification, provider.deleteShop);
+router.delete(
+  '/:shopid',
+  userAuth,
+  userShopVerification,
+  shopsService.deleteShop,
+);
 
+// /**
+//  * @method POST create a product
+//  * @route /shops/:shopid/products
+//  * @middlewares userAuth, validateProductData
+//  */
+// router.post(
+//   '/:shopid/products',
+//   userAuth,
+//   validateProductData,
+//   productsService.create,
+//   addProductToShop,
+// );
+
+// /**
+//  * @method PUT update a product
+//  * @route /shops/:shopid/products/:productid
+//  * @middlewares userAuth, validateProductData
+//  */
+// router.post(
+//   '/:shopid/products',
+//   userAuth,
+//   validateProductData,
+//   productsService.update,
+// );
+
+// /**
+//  * @method DELETE remove a product
+//  * @route /shops/:shopid/products/:productid
+//  * @middlewares userAuth
+//  */
+// router.delete('/:shopid/products/:productid', userAuth, productsService.remove);
 shopController.use('/shops', router);
 export default shopController;

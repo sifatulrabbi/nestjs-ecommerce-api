@@ -5,5 +5,4 @@ export * from './addShopToUser.middleware';
 export * from './addProductToShop.middleware';
 export * from './validateProductData.middleware';
 export * from './logger.middleware';
-export * from './contentTypeCheck.middleware';
 export * from './userAuth.middleware';

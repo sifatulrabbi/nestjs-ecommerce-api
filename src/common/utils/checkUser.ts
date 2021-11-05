@@ -1,6 +1,6 @@
 import { usersModel } from '../models';
 import { IUser } from 'src/typings';
-import { checkPassword } from './checkPassword';
+import * as bcrypt from 'bcrypt';
 
 interface ILoginInfo {
   username: string;
@@ -13,9 +13,9 @@ export const checkUser = async ({
 }: ILoginInfo): Promise<IUser> => {
   const user = await usersModel.findOne({ name: username });
 
-  if (await checkPassword(password, user.password)) {
+  if (await bcrypt.compare(password, user.password)) {
     return user;
   } else {
-    throw new Error('username password incorrect');
+    throw 'username password incorrect';
   }
 };

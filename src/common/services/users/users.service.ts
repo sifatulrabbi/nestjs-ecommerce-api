@@ -15,10 +15,7 @@ export class UsersService {
 
   async getUser(req: Request, res: Response): Promise<void> {
     try {
-      const name = req.params.username;
-      const user = await usersModel
-        .findOne({ name }, 'name fullName email')
-        .exec();
+      const user = await usersModel.findById(req.params.userid);
       res.status(201).json({ message: 'success', data: user });
     } catch (err) {
       res.status(500).json({ message: 'internal error', error: err });
@@ -72,7 +69,8 @@ export class UsersService {
   async login(req: Request, res: Response): Promise<void> {
     try {
       const user = res.locals.user;
-      res.status(201).json({
+
+      res.status(200).json({
         message: 'successfully logged in',
         data: user,
       });

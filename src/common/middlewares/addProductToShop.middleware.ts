@@ -8,13 +8,8 @@ export const addProductToShop = async (
 ): Promise<void> => {
   try {
     const product: IProduct = res.locals.product;
-    const message = res.locals.message;
-
     if (!product) {
-      res.status(500).json({
-        message: 'product not found in add product to shop middleware',
-      });
-      return;
+      res.status(404).json({ error: 'product not found' });
     }
 
     const shop = await shopsModel.findById(product.shopId);
@@ -23,12 +18,11 @@ export const addProductToShop = async (
     await shopsModel.findByIdAndUpdate(shop._id, {
       products: [...newProducts],
     });
-    message.push('added product id to shop');
 
-    res.status(201).json({ message, product });
+    res.status(201).json({ message: 'product created', product });
   } catch (err) {
     res.status(500).json({
-      message: 'internal error in create product middleware',
+      message: 'internal error in addProductToShop',
       error: err,
     });
   }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { checkUser, getUserShop } from '../utils';
+import { shopsModel } from '../models';
+import { checkUser } from '../utils';
 
 export const userAuth = async (
   req: Request,
@@ -12,9 +13,12 @@ export const userAuth = async (
       password: req.body.password,
     });
 
-    const shop = await getUserShop(user.shopId);
     res.locals.user = user;
-    res.locals.shop = shop;
+
+    if (user.shopId) {
+      const shop = await shopsModel.findById(user.shopId);
+      res.locals.shop = shop;
+    }
 
     next();
   } catch (err) {
