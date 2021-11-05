@@ -63,36 +63,5 @@ router.delete(
   shopsService.deleteShop,
 );
 
-// /**
-//  * @method POST create a product
-//  * @route /shops/:shopid/products
-//  * @middlewares userAuth, validateProductData
-//  */
-// router.post(
-//   '/:shopid/products',
-//   userAuth,
-//   validateProductData,
-//   productsService.create,
-//   addProductToShop,
-// );
-
-// /**
-//  * @method PUT update a product
-//  * @route /shops/:shopid/products/:productid
-//  * @middlewares userAuth, validateProductData
-//  */
-// router.post(
-//   '/:shopid/products',
-//   userAuth,
-//   validateProductData,
-//   productsService.update,
-// );
-
-// /**
-//  * @method DELETE remove a product
-//  * @route /shops/:shopid/products/:productid
-//  * @middlewares userAuth
-//  */
-// router.delete('/:shopid/products/:productid', userAuth, productsService.remove);
 shopController.use('/shops', router);
 export default shopController;

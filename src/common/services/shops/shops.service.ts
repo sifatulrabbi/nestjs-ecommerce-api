@@ -46,7 +46,7 @@ export class ShopsService {
     try {
       const shop: IShop = req.body.shop;
       const updatedShop = await shopsModel.findByIdAndUpdate(
-        req.params.id,
+        req.params.shopid,
         { ...shop },
         { new: true },
       );
