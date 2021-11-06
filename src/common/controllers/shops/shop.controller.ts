@@ -41,15 +41,9 @@ router.post(
 /**
  * @method PUT update shop
  * @route /shops/:shopid
- * @middlewares userAuth, validateShopData
+ * @middlewares userAuth,
  */
-router.put(
-  '/:shopid',
-  userAuth,
-  userShopVerification,
-  validateShopData,
-  shopsService.updateShop,
-);
+router.put('/:shopid', userAuth, userShopVerification, shopsService.updateShop);
 
 /**
  * @method DELETE delete a shop

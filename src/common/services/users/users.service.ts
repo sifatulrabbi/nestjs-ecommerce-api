@@ -7,6 +7,7 @@ export class UsersService {
   async getAll(req: Request, res: Response): Promise<void> {
     try {
       const users = await usersModel.find({});
+
       res.status(201).json({ message: 'success', data: [...users] });
     } catch (err) {
       res.status(500).json({ message: 'internal error', error: err });
@@ -16,6 +17,7 @@ export class UsersService {
   async getUser(req: Request, res: Response): Promise<void> {
     try {
       const user = await usersModel.findById(req.params.userid);
+
       res.status(201).json({ message: 'success', data: user });
     } catch (err) {
       res.status(500).json({ message: 'internal error', error: err });
@@ -25,8 +27,15 @@ export class UsersService {
   async create(req: Request, res: Response): Promise<void> {
     try {
       const user: IUser = req.body.user;
-      const hashedPass = await bcrypt.hash(user.password, 10);
+      if (await usersModel.findOne({ name: user.name })) {
+        res.status(400).json({
+          message:
+            'username has been taken please enter please a different name',
+        });
+        return;
+      }
 
+      const hashedPass = await bcrypt.hash(user.password, 10);
       const newUser = new usersModel({ ...user, password: hashedPass });
       const createdUser = await newUser.save();
 
@@ -81,6 +90,7 @@ export class UsersService {
   async delete(req: Request, res: Response): Promise<void> {
     try {
       await usersModel.findByIdAndRemove(req.params.userid);
+
       res.status(201).json({ message: 'user deleted' });
     } catch (err) {
       res.status(500).json({
