@@ -5,29 +5,17 @@ export type ShopsDocument = IShop & mongoose.Document;
 
 const shopsSchema = new mongoose.Schema<IShop>(
   {
-    name: {
-      type: String,
-      required: true,
-      unique: true,
-    },
+    name: { type: String, required: true, unique: true },
 
-    owner: {
-      type: String,
-      required: true,
-    },
+    owner: { type: String, required: true },
 
-    desc: {
-      type: String,
-    },
+    desc: { type: String },
 
     categories: [],
 
     products: [],
 
-    ownerId: {
-      type: String,
-      required: true,
-    },
+    ownerId: { type: String, required: true },
   },
   { timestamps: true },
 );
