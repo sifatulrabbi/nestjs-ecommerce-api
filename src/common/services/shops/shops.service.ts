@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { shopsModel } from '../../models';
 import { IShop } from 'src/typings';
 
-export class ShopsService {
+class ShopsService {
   async getShops(req: Request, res: Response): Promise<void> {
     try {
       const shops = await shopsModel.find({});
@@ -79,3 +79,5 @@ export class ShopsService {
     }
   }
 }
+
+export const shopsService = new ShopsService();

@@ -25,6 +25,8 @@ export declare interface IShop {
 export declare interface ICategory {
   _id?: string;
   name: string;
+  products: [{ id: string }];
+  shops: [{ id: string }];
 }
 
 export declare interface IProduct {

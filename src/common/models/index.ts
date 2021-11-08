@@ -1,3 +1,4 @@
-export { default as productsModel } from './products/products.model';
-export { default as shopsModel } from './shops/shops.model';
-export { default as usersModel } from './users/users.model';
+export * from './products/products.model';
+export * from './shops/shops.model';
+export * from './users/users.model';
+export * from './categories/categories.model';

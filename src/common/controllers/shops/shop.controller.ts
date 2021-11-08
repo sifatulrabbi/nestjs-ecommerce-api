@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { ShopsService } from '../../services';
+import { shopsService, categoriesService } from '../../services';
 import {
   addShopToUser,
   userShopVerification,
@@ -9,7 +9,6 @@ import {
 
 const shopController = express();
 const router = express.Router();
-const shopsService = new ShopsService();
 
 /**
  * @method GET all shops
@@ -34,6 +33,7 @@ router.post(
   '/',
   userAuth,
   validateShopData,
+  categoriesService.checkShopCategories,
   shopsService.createShop,
   addShopToUser,
 );
@@ -43,7 +43,13 @@ router.post(
  * @route /shops/:shopid
  * @middlewares userAuth,
  */
-router.put('/:shopid', userAuth, userShopVerification, shopsService.updateShop);
+router.put(
+  '/:shopid',
+  userAuth,
+  userShopVerification,
+  categoriesService.checkShopCategories,
+  shopsService.updateShop,
+);
 
 /**
  * @method DELETE delete a shop

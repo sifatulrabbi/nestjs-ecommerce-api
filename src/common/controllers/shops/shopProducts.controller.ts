@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { ProductsService } from '../../services';
+import { productsService } from '../../services';
 import {
   userAuth,
   addProductToShop,
@@ -8,7 +8,6 @@ import {
 
 const shopProductsController = express();
 const router = express.Router();
-const productsService = new ProductsService();
 
 /**
  * @method GET get products

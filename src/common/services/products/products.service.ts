@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { productsModel } from '../../models';
 
-export class ProductsService {
+class ProductsService {
   async getAll(req: Request, res: Response): Promise<void> {
     try {
       const products = await productsModel.find({});
@@ -89,3 +89,5 @@ export class ProductsService {
     }
   }
 }
+
+export const productsService = new ProductsService();

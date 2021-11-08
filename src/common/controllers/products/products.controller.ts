@@ -1,23 +1,22 @@
 import * as express from 'express';
-import { ProductsService } from '../../services';
+import { productsService } from '../../services';
 
 const productsController = express();
 const router = express.Router();
-const provider = new ProductsService();
 
 /**
  * @method GET all products
  * @route /products
  * @middlewares none
  */
-router.get('/', provider.getAll);
+router.get('/', productsService.getAll);
 
 /**
  * @method GET a product
  * @route /products/:productid
  * @middlewares none
  */
-router.get('/:productid', provider.getAProduct);
+router.get('/:productid', productsService.getAProduct);
 
 productsController.use('/products', router);
 export default productsController;
