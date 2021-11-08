@@ -11,7 +11,7 @@
 
 This is an E-Commerce API with modern features. This API is fast and secure. It's built with TypeScript, nextjs and MongoDB. This API can be used with any front-end frameworks (Angular, React, Vue). To use this API either **contact me** for an API secret or **clone** this repo star this repository before cloning or forking.
 
-[Goto docs](./documentation.md)
+[Goto docs](./docs/documentation.md)
 
 ## Features
 

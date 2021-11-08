@@ -1,19 +1,23 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { HealthCheckModule } from './health-check/health-check.module';
-import { ConfigModule } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
-import { UsersModule } from './users/users.module';
-
+import { DatabaseModule } from './configs';
+import {
+  UsersModule,
+  ShopsModule,
+  ProductsModule,
+  CategoriesModule,
+} from './modules';
+import { ConfigsModule } from './configs';
+import { AppController } from './controllers';
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGO_URI),
-    HealthCheckModule,
+    ConfigsModule,
+    DatabaseModule,
     UsersModule,
+    ShopsModule,
+    ProductsModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
