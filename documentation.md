@@ -29,46 +29,46 @@ $ yarn run test
 
 ```typescript
 interface IUser {
-    _id?: string;
-    name: string;
-    fullName: string;
-    email: string;
-    password: string;
-    photoURL?: string;
-    shopId?: string;
-    shopName?: string;
+  _id?: string;
+  name: string;
+  fullName: string;
+  email: string;
+  password: string;
+  photoURL?: string;
+  shopId?: string;
+  shopName?: string;
 }
 
 interface IShop {
-    _id?: string;
-    name: string;
-    owner: string;
-    ownerId: string;
-    categories?: string[];
-    desc?: string;
-    items?: string[];
-    coverURL?: string;
+  _id?: string;
+  name: string;
+  owner: string;
+  ownerId: string;
+  categories?: string[];
+  desc?: string;
+  items?: string[];
+  coverURL?: string;
 }
 
 interface ICategory {
-    _id?: string;
-    name: string;
+  _id?: string;
+  name: string;
 }
 
 interface IProduct {
-    _id?: string;
-    name: string;
-    desc: string;
-    price: string;
-    photoURL?: string;
-    shopId: string;
-    category: string;
-    tags: string[];
+  _id?: string;
+  name: string;
+  desc: string;
+  price: string;
+  photoURL?: string;
+  shopId: string;
+  category: string;
+  tags: string[];
 }
 
 interface ITag {
-    _id?: string;
-    name: string;
+  _id?: string;
+  name: string;
 }
 ```
 
@@ -82,7 +82,7 @@ import * as axios from 'axios';
  * @body { user: { name, fullName, email, password } }
  */
 const user: IUser = await axios.post('url/users', {
-    user: { name, fullName, email, password },
+  user: { name, fullName, email, password },
 });
 ```
 
@@ -103,9 +103,9 @@ const user: IUser = await axios.post('url/users/login', { username, password });
  * @body { password, user: { name, fullName, email }, newPassword }
  */
 const user: IUser = await axios.post(`url/users/${userId}`, {
-    password,
-    user: { name, fullName, email },
-    newPassword,
+  password,
+  user: { name, fullName, email },
+  newPassword,
 });
 ```
 
@@ -125,9 +125,9 @@ await axios.delete(`url/users/${userId}`, { username, password });
  * @body { username, password, shop: { name, description, categories } }
  */
 const shop: IShop = await axios.post(`url/shops`, {
-    username,
-    password,
-    shop: { name, desc, categories },
+  username,
+  password,
+  shop: { name, desc, categories },
 });
 ```
 
@@ -138,9 +138,9 @@ const shop: IShop = await axios.post(`url/shops`, {
  * @body { username, password, shop: { name, description, categories } }
  */
 const shop: IShop = await axios.post(`url/shops/${shopId}`, {
-    username,
-    password,
-    shop: { name, desc, categories },
+  username,
+  password,
+  shop: { name, desc, categories },
 });
 ```
 
