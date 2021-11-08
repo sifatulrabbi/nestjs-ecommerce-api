@@ -3,6 +3,7 @@ import usersController from './users/users.controller';
 import shopController from './shops/shop.controller';
 import productsController from './products/products.controller';
 import shopProductsController from './shops/shopProducts.controller';
+import categoriesController from './categories/categories.controller';
 
 export default [
   healthController,
@@ -10,4 +11,5 @@ export default [
   shopController,
   productsController,
   shopProductsController,
+  categoriesController,
 ];

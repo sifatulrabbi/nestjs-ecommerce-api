@@ -3,7 +3,7 @@ import { usersModel } from '../../models';
 import { IUser } from 'src/typings';
 import * as bcrypt from 'bcrypt';
 
-export class UsersService {
+class UsersService {
   async getAll(req: Request, res: Response): Promise<void> {
     try {
       const users = await usersModel.find({});
@@ -99,3 +99,5 @@ export class UsersService {
     }
   }
 }
+
+export const usersService = new UsersService();

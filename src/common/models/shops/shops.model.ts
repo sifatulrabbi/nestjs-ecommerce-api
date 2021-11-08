@@ -20,6 +20,4 @@ const shopsSchema = new mongoose.Schema<IShop>(
   { timestamps: true },
 );
 
-const shopsModel = mongoose.model<ShopsDocument>('shops', shopsSchema);
-
-export default shopsModel;
+export const shopsModel = mongoose.model<ShopsDocument>('shops', shopsSchema);
