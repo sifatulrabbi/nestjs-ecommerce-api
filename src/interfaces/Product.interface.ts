@@ -7,4 +7,5 @@ export interface IProduct {
   price: number;
   shop: ObjectId;
   category: string;
+  tags?: string[];
 }
