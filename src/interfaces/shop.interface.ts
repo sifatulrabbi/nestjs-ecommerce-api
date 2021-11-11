@@ -3,6 +3,7 @@ export interface IShop {
   name: string;
   desc: string;
   owner_id: string;
+  owner_name: string;
   categories: string[];
   products?: string[];
 }

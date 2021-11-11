@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { ShopsDocument } from './models/shops.model';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
+import { IUser } from 'src/interfaces';
 
 @Injectable()
 export class ShopsService {
