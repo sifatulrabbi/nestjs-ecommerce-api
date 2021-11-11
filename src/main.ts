@@ -1,9 +1,12 @@
 import * as express from 'express';
-import { config } from './config';
-import { connectDb } from './db';
+import {
+  config,
+  connectDb,
+  controllers,
+  loggerMiddleware,
+  initStrategy,
+} from './v1';
 import * as cors from 'cors';
-import { controllers, loggerMiddleware } from './common';
-import { initStrategy } from './auth';
 
 const app = express();
 

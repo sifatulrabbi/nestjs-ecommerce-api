@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { IUser } from 'src/typings';
+import { IUser } from '../typings';
 import { usersModel } from '../common';
 import * as bcrypt from 'bcrypt';
 
