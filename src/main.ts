@@ -1,12 +1,20 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule as v1 } from './api/v1/app.module';
+import { AppModule as V1Module } from './v1/app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(v1);
+  const app = await NestFactory.create(V1Module);
   const config = app.get(ConfigService);
+
+  app.useGlobalPipes(
+    new ValidationPipe({ stopAtFirstError: true, always: true }),
+  );
+  app.setGlobalPrefix('api');
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('exp-api')
@@ -14,10 +22,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
-
-  app.useGlobalPipes(
-    new ValidationPipe({ stopAtFirstError: true, always: true }),
-  );
 
   await app.listen(config.get<number>('port'));
 }
