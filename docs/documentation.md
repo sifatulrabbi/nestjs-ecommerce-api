@@ -2,8 +2,6 @@
 
 ## Installation
 
-_I'm using yarn but use npm if you like_
-
 ```bash
 $ yarn install
 ```
@@ -11,7 +9,6 @@ $ yarn install
 ## Running the app
 
 ```bash
-# development
 $ yarn run start
 
 # watch mode
@@ -30,125 +27,76 @@ $ yarn run test
 ```typescript
 interface IUser {
   _id?: string;
-  name: string;
-  fullName: string;
   email: string;
   password: string;
-  photoURL?: string;
-  shopId?: string;
-  shopName?: string;
-}
-
-interface IShop {
-  _id?: string;
   name: string;
-  owner: string;
-  ownerId: string;
-  categories?: string[];
-  desc?: string;
-  items?: string[];
-  coverURL?: string;
-}
-
-interface ICategory {
-  _id?: string;
-  name: string;
-}
-
-interface IProduct {
-  _id?: string;
-  name: string;
-  desc: string;
-  price: string;
-  photoURL?: string;
-  shopId: string;
-  category: string;
-  tags: string[];
-}
-
-interface ITag {
-  _id?: string;
-  name: string;
+  shop_name?: string;
+  shop_id?: string;
 }
 ```
 
-_In these examples I'm using axios feel free use any technologies you want._
+_In these examples I'm using axios feel free use other technologies._
 
 ## User sign up
 
-```typescript
-import * as axios from 'axios';
-/**
- * @body { user: { name, fullName, email, password } }
- */
-const user: IUser = await axios.post('url/users', {
-  user: { name, fullName, email, password },
-});
+```javascript
+import axios from 'axios';
+
+const signUp = async (userData) => {
+  const res = await axios.post(`url/users`, {
+    email: '', // put new email
+    password: '', // put password
+    name: '', // put new name
+  });
+
+  return res.data;
+};
 ```
 
 ## User login
 
-```typescript
-/**
- * @body { username, password }
- * @redirects url/users/:userid
- */
-const user: IUser = await axios.post('url/users/login', { username, password });
+```javascript
+import axios from 'axios';
+
+const login = async (email, password) => {
+  const res = await axios.post(`url/users/login`, {
+    email: '', // put email
+    password: '', // put password
+  });
+
+  return res.data;
+};
 ```
 
 ## Update user info
 
-```typescript
-/**
- * @body { password, user: { name, fullName, email }, newPassword }
- */
-const user: IUser = await axios.post(`url/users/${userId}`, {
-  password,
-  user: { name, fullName, email },
-  newPassword,
-});
+```javascript
+import axios from 'axios';
+
+const updateUserInfo = async (userData) => {
+  const res = await axios.put(`url/users/:id`, {
+    password: '', // put password
+    new_email: '', // put new email
+    new_name: '', // put new name
+    new_password: '', // put new password
+    confirm_password: '', // put new password again to confirm
+  });
+
+  return res.data;
+};
 ```
 
 ## Delete user
 
-```typescript
-/**
- * @body { username, password }
- */
-await axios.delete(`url/users/${userId}`, { username, password });
-```
+```javascript
+import axios from 'axios';
 
-## Create shop
+const login = async (email, password) => {
+  const res = await axios.delete(`url/users/login`, {
+    email: '', // put email
+    password: '', // put password
+  });
 
-```typescript
-/**
- * @body { username, password, shop: { name, description, categories } }
- */
-const shop: IShop = await axios.post(`url/shops`, {
-  username,
-  password,
-  shop: { name, desc, categories },
-});
-```
-
-## Update shop info
-
-```typescript
-/**
- * @body { username, password, shop: { name, description, categories } }
- */
-const shop: IShop = await axios.post(`url/shops/${shopId}`, {
-  username,
-  password,
-  shop: { name, desc, categories },
-});
-```
-
-## Delete shop
-
-```typescript
-/**
- * @body { username, password }
- */
-await axios.delete(`url/shops/${shopId}`, { username, password });
+  return res.data;
+};
 ```

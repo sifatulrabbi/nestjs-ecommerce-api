@@ -37,4 +37,4 @@ This API is an MIT-licensed open source project. If you'd like to join me in thi
 ## License
 
 Nest is [MIT licensed](LICENSE).  
-This project is also [MIT licensed](LICENSE).
+This project is also [MIT licensed](./LICENSE).
