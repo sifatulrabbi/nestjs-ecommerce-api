@@ -10,15 +10,15 @@ class Shops implements IShop {
   name: string;
 
   @Prop({ required: true })
-  password: string;
-
-  @Prop({ required: true })
   desc: string;
 
-  @Prop()
+  @Prop({ required: true })
   owner_id: string;
 
-  @Prop([String])
+  @Prop({ required: true })
+  owner_name: string;
+
+  @Prop({ type: [String], required: true })
   categories: string[];
 
   @Prop([String])
