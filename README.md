@@ -5,18 +5,11 @@
 
 This is an E-Commerce API with modern features. This API is fast and secure. It's built with TypeScript and MongoDB. This API can be used with any front-end frameworks (Angular, React, Vue). To use this API either **contact me** for an API secret or **clone** this repo star this repository before cloning or forking.
 
-[Read documentation](./documentation.md)
+[Goto docs](./docs/documentation.md)
 
 ## Features
 
--   User login
--   Shop creation
--   Products upload
--   Adding new product tags
--   Updating products price and details
--   Getting all uploaded products data
--   Finding products by tags
--   Finding products by category
+## Features
 
 ## Support
 
@@ -30,4 +23,5 @@ This API is an MIT-licensed open source project. If you'd like to join me in thi
 
 ## License
 
-This project is [MIT licensed]().
+Nest is [MIT licensed](LICENSE).  
+This project is also [MIT licensed](./LICENSE).

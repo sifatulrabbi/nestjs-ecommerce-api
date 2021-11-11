@@ -2,7 +2,7 @@
   "name": "exp-e-commerce-api",
   "version": "0.0.1",
   "description": "",
-  "author": "temujins<https://github.com/temujins",
+  "author": "Sifatul <mdsifatulislam.rabbi@gmail.com> (https://temujins.github.io)",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -18,15 +18,23 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@nestjs/common": "^8.0.0",
+    "@nestjs/config": "^1.1.0",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/mongoose": "^9.0.1",
+    "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^5.1.4",
     "@types/passport-local": "^1.0.34",
     "bcrypt": "^5.0.1",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "mongoose": "^6.0.12",
     "passport": "^0.5.0",
     "passport-local": "^1.0.0",
-    "uuid": "^8.3.2"
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
