@@ -10,7 +10,7 @@ import * as bcrypt from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UsersDocument } from './models/users.model';
+import { UsersDocument } from './entities/users.model';
 import { LoginUserDto } from '.';
 import { IUser } from 'src/interfaces';
 
@@ -94,6 +94,11 @@ export class UsersService {
     if (!user) {
       throw new HttpException('Unable to find any user', 500);
     }
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<UsersDocument> {
+    const user = await this.usersModel.findOne({ email });
     return user;
   }
 

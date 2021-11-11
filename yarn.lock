@@ -588,6 +588,11 @@
   resolved "https://registry.yarnpkg.com/@nestjs/mongoose/-/mongoose-9.0.1.tgz#a07f5440318d277579ed8ab2b4dec7eb5cc13e4e"
   integrity sha512-TITKt5Q+k7PU5OmRcvQqqTdjBpAToFkP6LoLZ4n2DGm4jHh9iqX3Rkm8e7Ytwb5iWqGAAn1txcYJP8XO/H9Ixg==
 
+"@nestjs/passport@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@nestjs/passport/-/passport-8.0.1.tgz#f1ed39a19489f794d1fe3fef592b4523bc48da68"
+  integrity sha512-vn/ZJLXQKvSf9D0BvEoNFJLfzl9AVqfGtDyQMfWDLbaNpoEB2FyeaHGxdiX6H71oLSrQV78c/yuhfantzwdjdg==
+
 "@nestjs/platform-express@^8.0.0":
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/@nestjs/platform-express/-/platform-express-8.1.1.tgz#33545402def3dd45219dcb9165db456bf8f239b2"
