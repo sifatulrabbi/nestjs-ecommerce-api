@@ -1,2 +1,2 @@
+export * from './shops.schema';
 export * from './shops.model';
-export * from './shops-model.module';

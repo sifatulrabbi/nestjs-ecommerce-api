@@ -10,8 +10,8 @@ import * as bcrypt from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UsersDocument } from './entities/users.model';
-import { LoginUserDto } from '.';
+import { UsersDocument } from './entities';
+import { LoginUserDto } from './dto';
 import { IUser } from 'src/interfaces';
 
 @Injectable()

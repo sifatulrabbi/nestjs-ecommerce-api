@@ -1,2 +1,2 @@
-export * from './user-model.module';
-export * from './users.model';
+export * from './user.model';
+export * from './users.schema';
