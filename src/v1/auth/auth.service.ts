@@ -1,21 +1,12 @@
-import {
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
-import { ShopsDocument } from '../shops';
 import { UsersDocument } from '../users';
 import { UsersService } from '../users/users.service';
-import { ShopsService } from '../shops/shops.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly shopsService: ShopsService,
-  ) {}
+  constructor(private usersService: UsersService) {}
 
   async validateUser(email: string, password: string): Promise<UsersDocument> {
     const user = await this.usersService.findByEmail(email);
