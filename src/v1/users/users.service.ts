@@ -1,18 +1,15 @@
-import {
-  HttpException,
-  Injectable,
-  InternalServerErrorException,
-  UnauthorizedException,
-} from '@nestjs/common';
+// prettier-ignore
+import { HttpException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import type { Model, ObjectId } from 'mongoose';
+import { Request } from 'express';
 import * as bcrypt from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersDocument } from './entities';
 import { LoginUserDto } from './dto';
-import { IUser } from 'src/interfaces';
+import { IUser, IUserPreview } from 'src/interfaces';
 
 @Injectable()
 export class UsersService {
@@ -102,20 +99,24 @@ export class UsersService {
     return user;
   }
 
-  async login(loginUserDto: LoginUserDto): Promise<UsersDocument> {
-    const user = await this.findUserAndAuth(
-      loginUserDto.email,
-      loginUserDto.password,
-    );
-
-    return user;
+  async login(req: Request): Promise<IUserPreview> {
+    const user = req.user as UsersDocument;
+    const data: IUserPreview = {
+      name: user.name,
+      email: user.email,
+      shop_name: user.shop_name,
+    };
+    return data;
   }
 
   async update(
+    user: UsersDocument,
     id: string,
     updateUserDto: UpdateUserDto,
   ): Promise<UsersDocument> {
-    const user = await this.findUserByIdAndAuth(id, updateUserDto.password);
+    if (user._id !== id) {
+      throw new UnauthorizedException(`you don't have required permissions`);
+    }
 
     const {
       new_email,
