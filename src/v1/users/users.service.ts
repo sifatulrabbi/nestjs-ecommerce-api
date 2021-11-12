@@ -10,15 +10,15 @@ import * as bcrypt from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UsersDocument } from './models/users.model';
-import { LoginUserDto } from '.';
+import { UsersDocument } from './entities';
+import { LoginUserDto } from './dto';
 import { IUser } from 'src/interfaces';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel('users')
-    private readonly usersModel: Model<UsersDocument>,
+    private usersModel: Model<UsersDocument>,
   ) {}
 
   private async hashString(str: string): Promise<string> {
@@ -94,6 +94,11 @@ export class UsersService {
     if (!user) {
       throw new HttpException('Unable to find any user', 500);
     }
+    return user;
+  }
+
+  async findByEmail(email: string): Promise<UsersDocument> {
+    const user = await this.usersModel.findOne({ email });
     return user;
   }
 

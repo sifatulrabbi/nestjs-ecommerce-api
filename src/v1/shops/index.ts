@@ -1,3 +1,3 @@
-export * from './models/shops.model';
+export * from './entities';
 export * from './shops.module';
 export * from './dto';

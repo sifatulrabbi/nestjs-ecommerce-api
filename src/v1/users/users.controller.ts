@@ -1,14 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Put,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { UsersService } from './users.service';
+// prettier-ignore
+import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+
 import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
+import { UsersService } from './users.service';
 import { IUser } from 'src/interfaces';
 
 @Controller({ version: '1', path: 'users' })

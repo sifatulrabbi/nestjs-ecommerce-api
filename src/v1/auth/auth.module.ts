@@ -1,18 +1,11 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-
-import { UsersSchema } from '../users';
-import { ShopsSchema } from '../shops';
+import { UsersModule } from '../users';
 import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: 'users', schema: UsersSchema },
-      { name: 'shops', schema: ShopsSchema },
-    ]),
-  ],
-  exports: [AuthService],
-  providers: [AuthService],
+  imports: [UsersModule],
+  providers: [AuthService, LocalAuthGuard],
+  exports: [AuthService, LocalAuthGuard],
 })
 export class AuthModule {}

@@ -2,10 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { ShopsDocument } from './models/shops.model';
+import { ShopsDocument } from './entities';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
-import { IUser } from 'src/interfaces';
 
 @Injectable()
 export class ShopsService {
