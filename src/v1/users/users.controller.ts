@@ -1,9 +1,12 @@
 // prettier-ignore
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Request } from 'express';
 
 import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
 import { UsersService } from './users.service';
-import { IUser } from 'src/interfaces';
+import { IUser, IUserPreview } from 'src/interfaces';
+import { LocalAuthGuard } from '../guards';
+import { UsersDocument } from '.';
 
 @Controller({ version: '1', path: 'users' })
 export class UsersController {
@@ -24,19 +27,27 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @UseGuards(LocalAuthGuard)
   @Post('/login')
-  login(@Body() loginUserDto: LoginUserDto): Promise<IUser> {
-    return this.usersService.login(loginUserDto);
+  login(@Req() req: Request): Promise<IUserPreview> {
+    return this.usersService.login(req);
   }
 
+  @UseGuards(LocalAuthGuard)
   @Put(':id')
   update(
+    @Req() req: Request,
     @Param('id') id: string,
-    @Body() updateUserDto: UpdateUserDto,
+    @Body('update_data') updateUserDto: UpdateUserDto,
   ): Promise<IUser> {
-    return this.usersService.update(id, updateUserDto);
+    return this.usersService.update(
+      req.user as UsersDocument,
+      id,
+      updateUserDto,
+    );
   }
 
+  @UseGuards(LocalAuthGuard)
   @Delete(':id')
   async remove(
     @Param('id') id: string,
