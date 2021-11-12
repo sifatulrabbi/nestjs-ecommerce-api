@@ -18,7 +18,7 @@ import { IUser } from 'src/interfaces';
 export class UsersService {
   constructor(
     @InjectModel('users')
-    private readonly usersModel: Model<UsersDocument>,
+    private usersModel: Model<UsersDocument>,
   ) {}
 
   private async hashString(str: string): Promise<string> {

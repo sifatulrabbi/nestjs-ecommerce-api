@@ -1,9 +1,8 @@
 // prettier-ignore
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
 
 import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
 import { UsersService } from './users.service';
-import { LocalAuthGuard } from '../auth';
 import { IUser } from 'src/interfaces';
 
 @Controller({ version: '1', path: 'users' })
@@ -25,13 +24,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('/login')
   login(@Body() loginUserDto: LoginUserDto): Promise<IUser> {
     return this.usersService.login(loginUserDto);
   }
 
-  @UseGuards(LocalAuthGuard)
   @Put(':id')
   update(
     @Param('id') id: string,
@@ -40,7 +37,6 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  @UseGuards(LocalAuthGuard)
   @Delete(':id')
   async remove(
     @Param('id') id: string,
