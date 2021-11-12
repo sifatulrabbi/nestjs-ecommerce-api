@@ -1,5 +1,6 @@
 export interface IShop {
   _id?: string;
+  email: string;
   name: string;
   desc: string;
   owner_id: string;

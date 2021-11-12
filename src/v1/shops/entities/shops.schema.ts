@@ -6,6 +6,9 @@ export type ShopsDocument = Shops & Document;
 
 @Schema({ timestamps: true })
 class Shops implements IShop {
+  @Prop({ required: true, unique: true })
+  email: string;
+
   @Prop({ required: true })
   name: string;
 
