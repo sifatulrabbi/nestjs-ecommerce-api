@@ -1,7 +1,17 @@
-import { IsNotEmpty, IsString, IsArray, IsOptional } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsArray,
+  IsOptional,
+  IsEmail,
+} from 'class-validator';
 import { IShop } from 'src/interfaces';
 
 export class CreateShopDto implements IShop {
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
   @IsString()
   @IsNotEmpty()
   name: string;

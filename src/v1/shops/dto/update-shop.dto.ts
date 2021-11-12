@@ -17,19 +17,33 @@ export class UpdateShopDto {
   @IsNotEmpty()
   password: string;
 
-  @IsString()
-  @IsNotEmpty()
-  new_name: string;
+  @IsEmail()
+  @IsOptional()
+  new_email?: string;
 
   @IsString()
-  @IsNotEmpty()
-  new_desc: string;
+  @IsOptional()
+  name?: string;
+
+  @IsString()
+  @IsOptional()
+  desc?: string;
 
   @IsArray()
-  @IsNotEmpty()
-  categories: string[];
+  @IsOptional()
+  categories?: string[];
 
   @IsArray()
   @IsOptional()
   products?: string[];
+
+  @Length(8, 26)
+  @IsString()
+  @IsOptional()
+  new_password?: string;
+
+  @Length(8, 26)
+  @IsString()
+  @IsOptional()
+  confirm_password?: string;
 }
