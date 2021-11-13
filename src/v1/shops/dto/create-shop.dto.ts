@@ -1,37 +1,25 @@
-import {
-  IsNotEmpty,
-  IsString,
-  IsArray,
-  IsOptional,
-  IsEmail,
-} from 'class-validator';
-import { IShop } from 'src/interfaces';
+// prettier-ignore
+import { IsNotEmpty, IsString, IsArray, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { LoginUserDto } from '../../users';
 
-export class CreateShopDto implements IShop {
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
+export class CreateShopDto extends LoginUserDto {
+  @ApiProperty({ required: true })
   @IsString()
   @IsNotEmpty()
   name: string;
 
+  @ApiProperty({ required: true })
   @IsString()
   @IsNotEmpty()
   desc: string;
 
-  @IsString()
-  @IsNotEmpty()
-  owner_id: string;
-
-  @IsString()
-  @IsNotEmpty()
-  owner_name: string;
-
+  @ApiProperty({ required: true, isArray: true })
   @IsArray()
   @IsNotEmpty()
   categories: string[];
 
+  @ApiProperty({ required: false, isArray: true })
   @IsArray()
   @IsOptional()
   products?: string[];

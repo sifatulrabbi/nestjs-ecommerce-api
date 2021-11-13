@@ -1,29 +1,37 @@
-import { IsString, IsEmail, Length, IsOptional } from 'class-validator';
+import { IsString, IsEmail, MinLength, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { LoginUserDto } from './login-user.dto';
 
-export class UpdateUserDto {
+export class UpdateUserDto extends LoginUserDto {
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
   new_name: string;
 
+  @ApiProperty({ required: false })
   @IsEmail()
   @IsOptional()
   new_email: string;
 
-  @Length(8, 26)
+  @ApiProperty({ required: false, minLength: 8 })
+  @MinLength(8)
   @IsString()
   @IsOptional()
   new_password: string;
 
-  @Length(8, 26)
+  @ApiProperty({ required: false, minLength: 8 })
+  @MinLength(8)
   @IsString()
   @IsOptional()
-  confirm_password: string;
+  new_confirm_password: string;
 
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
-  shop_id?: string;
+  new_shop_id?: string;
 
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
-  shop_name?: string;
+  new_shop_name?: string;
 }

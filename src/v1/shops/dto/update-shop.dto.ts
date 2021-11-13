@@ -1,49 +1,31 @@
-import {
-  IsNotEmpty,
-  IsString,
-  IsArray,
-  IsOptional,
-  IsEmail,
-  Length,
-} from 'class-validator';
+// prettier-ignore
+import { IsString, IsArray, IsOptional, IsEmail } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { LoginUserDto } from '../../users';
 
-export class UpdateShopDto {
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @Length(8, 26)
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-
+export class UpdateShopDto extends LoginUserDto {
+  @ApiProperty({ required: false })
   @IsEmail()
   @IsOptional()
   new_email?: string;
 
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
-  name?: string;
+  new_name?: string;
 
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
-  desc?: string;
+  new_desc?: string;
 
+  @ApiProperty({ required: false })
   @IsArray()
   @IsOptional()
-  categories?: string[];
+  new_categories?: string[];
 
+  @ApiProperty({ required: false })
   @IsArray()
   @IsOptional()
-  products?: string[];
-
-  @Length(8, 26)
-  @IsString()
-  @IsOptional()
-  new_password?: string;
-
-  @Length(8, 26)
-  @IsString()
-  @IsOptional()
-  confirm_password?: string;
+  new_products?: string[];
 }

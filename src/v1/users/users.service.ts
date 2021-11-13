@@ -123,9 +123,9 @@ export class UsersService {
       new_email,
       new_name,
       new_password,
-      confirm_password,
-      shop_name,
-      shop_id,
+      new_confirm_password,
+      new_shop_name,
+      new_shop_id,
     } = updateUserDto;
 
     const updateQueue: IUser = {
@@ -135,10 +135,10 @@ export class UsersService {
     };
 
     if (new_password) {
-      if (!confirm_password) {
+      if (!new_confirm_password) {
         throw new HttpException('confirm_password is required', 400);
       }
-      if (new_password === confirm_password) {
+      if (new_password === new_confirm_password) {
         const hash = await this.hashString(new_password);
         updateQueue.password = hash;
       } else throw new HttpException("passwords don't match", 400);
@@ -149,11 +149,11 @@ export class UsersService {
     if (new_name) {
       updateQueue.name = new_name;
     }
-    if (shop_id) {
-      updateQueue.shop_id = shop_id;
+    if (new_shop_id) {
+      updateQueue.shop_id = new_shop_id;
     }
-    if (shop_name) {
-      updateQueue.shop_name = shop_name;
+    if (new_shop_name) {
+      updateQueue.shop_name = new_shop_name;
     }
 
     const updatedUser = await this.usersModel.findByIdAndUpdate(
