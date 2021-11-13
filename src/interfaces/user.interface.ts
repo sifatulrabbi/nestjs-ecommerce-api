@@ -7,4 +7,4 @@ export interface IUser {
   shop_id?: string;
 }
 
-export type IUserPreview = Pick<IUser, 'email' | 'name' | 'shop_name'>;
+export type IUserPreview = Pick<IUser, '_id' | 'email' | 'name' | 'shop_name'>;

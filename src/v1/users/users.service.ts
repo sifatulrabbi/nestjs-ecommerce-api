@@ -102,6 +102,7 @@ export class UsersService {
   async login(req: Request): Promise<IUserPreview> {
     const user = req.user as UsersDocument;
     const data: IUserPreview = {
+      _id: user._id,
       name: user.name,
       email: user.email,
       shop_name: user.shop_name,
@@ -113,8 +114,8 @@ export class UsersService {
     user: UsersDocument,
     id: string,
     updateUserDto: UpdateUserDto,
-  ): Promise<UsersDocument> {
-    if (user._id !== id) {
+  ): Promise<IUserPreview> {
+    if (user.id !== id) {
       throw new UnauthorizedException(`you don't have required permissions`);
     }
 
@@ -155,11 +156,17 @@ export class UsersService {
       updateQueue.shop_name = shop_name;
     }
 
-    return await this.usersModel.findByIdAndUpdate(
+    const updatedUser = await this.usersModel.findByIdAndUpdate(
       id,
       { ...updateQueue },
       { new: true },
     );
+    return {
+      _id: updatedUser.id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      shop_name: updatedUser.shop_name,
+    };
   }
 
   async remove(id: string, loginUserDto: LoginUserDto) {
