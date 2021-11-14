@@ -38,7 +38,7 @@ export class UsersController {
   update(
     @Req() req: Request,
     @Param('id') id: string,
-    @Body('update_data') updateUserDto: UpdateUserDto,
+    @Body() updateUserDto: UpdateUserDto,
   ): Promise<IUserPreview> {
     return this.usersService.update(
       req.user as UsersDocument,
