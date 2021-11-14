@@ -1,6 +1,6 @@
 {
   "name": "exp-e-commerce-api",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
   "author": "Sifatul <mdsifatulislam.rabbi@gmail.com> (https://temujins.github.io)",
   "private": true,
@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "node ./src/main.js",
+    "start": "node ./dist/main.js",
     "start:dev": "nodemon ./src/main.ts",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
