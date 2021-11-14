@@ -8,7 +8,7 @@
   "license": "MIT",
   "homepage": "https://github.com/owner/project#readme",
   "engines": {
-    "node": "12.*, 14.*, 16.*"
+    "node": ">=14.*"
   },
   "main": "main.js",
   "scripts": {
