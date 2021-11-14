@@ -42,8 +42,10 @@ _In these examples I'm using axios feel free use other technologies._
 ```javascript
 import axios from 'axios';
 
+const url = 'https://exp-e-commerce-api.herokuapp.com/api/v1';
+
 const signUp = async (userData) => {
-  const res = await axios.post(`url/users`, {
+  const res = await axios.post(`${url}`, {
     email: '', // put new email
     password: '', // put password
     name: '', // put new name
@@ -59,7 +61,7 @@ const signUp = async (userData) => {
 import axios from 'axios';
 
 const login = async (email, password) => {
-  const res = await axios.post(`url/users/login`, {
+  const res = await axios.post(`${url}/login`, {
     email: '', // put email
     password: '', // put password
   });
@@ -74,7 +76,7 @@ const login = async (email, password) => {
 import axios from 'axios';
 
 const updateUserInfo = async (userData) => {
-  const res = await axios.put(`url/users/:id`, {
+  const res = await axios.put(`${url}/:id`, {
     password: '', // put password
     new_email: '', // put new email
     new_name: '', // put new name
@@ -92,7 +94,7 @@ const updateUserInfo = async (userData) => {
 import axios from 'axios';
 
 const login = async (email, password) => {
-  const res = await axios.delete(`url/users/login`, {
+  const res = await axios.delete(`${url}/login`, {
     email: '', // put email
     password: '', // put password
   });
