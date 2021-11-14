@@ -1,6 +1,4 @@
-import { Response } from 'express';
-
-export declare interface IUser {
+export interface IUser {
   _id?: string;
   name: string;
   fullName: string;
@@ -11,7 +9,7 @@ export declare interface IUser {
   shopName?: string;
 }
 
-export declare interface IShop {
+export interface IShop {
   _id?: string;
   name: string;
   owner: string;
@@ -22,14 +20,14 @@ export declare interface IShop {
   coverURL?: string;
 }
 
-export declare interface ICategory {
+export interface ICategory {
   _id?: string;
   name: string;
   products: [{ id: string }];
   shops: [{ id: string }];
 }
 
-export declare interface IProduct {
+export interface IProduct {
   _id?: string;
   name: string;
   desc: string;
@@ -40,7 +38,7 @@ export declare interface IProduct {
   tags: string[];
 }
 
-export declare interface ITag {
+export interface ITag {
   _id?: string;
   name: string;
 }
