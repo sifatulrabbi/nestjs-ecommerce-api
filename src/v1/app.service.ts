@@ -1,20 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Response } from 'express';
-import * as fs from 'fs';
-import * as md from 'markdown-it';
 
 @Injectable()
 export class AppService {
-  async getHello(res: Response): Promise<void> {
-    const path = __dirname + '/../../README.md';
-
-    fs.readFile(path, 'utf-8', (err: NodeJS.ErrnoException, data: string) => {
-      if (err) {
-        console.log(err);
-      }
-      const marked = new md();
-      const html = marked.render(data.toString());
-      res.send(html);
-    });
+  getHello(res: Response) {
+    const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>EXP E-Commerce API</title><style>*,*::after,*::before {font-family: 'Helvetica', 'Roboto', sans-serif;}body {background-color: rgb(34, 36, 41);margin: 0 auto;max-width: 800px;padding: 2rem;line-height: 1;display: flex;flex-direction: column;grid-gap: 5vh;color: #fff;}p {line-height: 1.5;}a {margin-right: 1rem;text-decoration: none;color: cyan;}main {display: flex;flex-direction: column;grid-gap: 5vh;}ul {display: flex;flex-direction: row;list-style-type: none;line-height: 1.5;margin: 0;padding: 0;}li {padding: 0;margin: 0;}</style></head><body><header><h1>Welcome to EXP E-Commerce API</h1><p><b>Author: </b><span><a href="https://github.com/temujins">Sifatul Rabbi</a></span></p></header><main><article><h2>Description</h2><p>This is an E-Commerce API with modern features. This API is fast and secure. It's built with TypeScript, nextjs and MongoDB. This API can be used with any front-end frameworks (Angular, React, Vue). To use this API either contact me for an API secret or clone this repo star this repository before cloning or forking. </p><a href="https://github.com/temujins/exp-e-commerce-api/blob/main/docs/documentation.md">Read Docs</a></article><article><h2>Support</h2><p>This API is an MIT-licensed open source project. If you'd like to join me in this project then fell free to submit your pull request.</p><a href="https://github.com/temujins/exp-e-commerce-api">Goto Repository</a></article><section><h2>Links</h2><ul><li><a href="https://github.com/temujins">GitHub</a></li><li><a href="https://temujins.github.io">Website</a></li><li><a href="https://linkedin.com/in/temujins">LinkedIn</a></li></ul></section></main><script></script></body></html>`;
+    res.send(html);
   }
 }
