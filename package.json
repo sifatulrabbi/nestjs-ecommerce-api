@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "author": "Sifatul <mdsifatulislam.rabbi@gmail.com> (https://temujins.github.io)",
+  "url": "https://temujins.github.io",
   "private": true,
   "license": "MIT",
+  "homepage": "https://github.com/owner/project#readme",
+  "engines": {
+    "node": "14.x"
+  },
+  "main": "main.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
