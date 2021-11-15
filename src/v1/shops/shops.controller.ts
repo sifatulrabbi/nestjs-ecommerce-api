@@ -1,14 +1,12 @@
 // prettier-ignore
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, Req } from '@nestjs/common';
-import { Request } from 'express';
-
+import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
 import { ShopsService } from './shops.service';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
-import { LocalAuthGuard } from '../guards';
 import { UsersDocument } from '../users';
 import { IShop } from 'src/interfaces';
-import { User } from '../decorators';
+import { User, Roles } from '../decorators';
+import { LocalAuthGuard, RolesGuard } from '../guards';
 
 @Controller({ version: '1', path: 'shops' })
 export class ShopsController {
@@ -24,26 +22,28 @@ export class ShopsController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<IShop[]> {
     return this.shopsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<IShop> {
     return this.shopsService.findOne(id);
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard, RolesGuard)
+  @Roles('owner', 'admin')
   @Put(':id')
   update(
     @User() user: UsersDocument,
     @Param('id') id: string,
     @Body() updateShopDto: UpdateShopDto,
-  ) {
+  ): Promise<IShop> {
     return this.shopsService.update(id, updateShopDto);
   }
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard, RolesGuard)
+  @Roles('owner', 'admin')
   @Delete(':id')
   remove(@User() user: UsersDocument, @Param('id') id: string) {
     return this.shopsService.remove(id);
