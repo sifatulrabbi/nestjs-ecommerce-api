@@ -7,6 +7,7 @@ import { UsersService } from './users.service';
 import { IUser, IUserPreview } from 'src/interfaces';
 import { LocalAuthGuard } from '../guards';
 import { UsersDocument } from '.';
+import { User } from '../decorators';
 
 @Controller({ version: '1', path: 'users' })
 export class UsersController {
@@ -29,22 +30,18 @@ export class UsersController {
 
   @UseGuards(LocalAuthGuard)
   @Post('/login')
-  login(@Req() req: Request): Promise<IUserPreview> {
-    return this.usersService.login(req);
+  login(@User() user: UsersDocument): Promise<IUserPreview> {
+    return this.usersService.login(user);
   }
 
   @UseGuards(LocalAuthGuard)
   @Put(':id')
   update(
-    @Req() req: Request,
+    @User() user: UsersDocument,
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<IUserPreview> {
-    return this.usersService.update(
-      req.user as UsersDocument,
-      id,
-      updateUserDto,
-    );
+    return this.usersService.update(user, id, updateUserDto);
   }
 
   @UseGuards(LocalAuthGuard)
