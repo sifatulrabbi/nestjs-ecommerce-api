@@ -99,8 +99,7 @@ export class UsersService {
     return user;
   }
 
-  async login(req: Request): Promise<IUserPreview> {
-    const user = req.user as UsersDocument;
+  async login(user: UsersDocument): Promise<IUserPreview> {
     const data: IUserPreview = {
       _id: user._id,
       name: user.name,

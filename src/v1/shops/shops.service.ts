@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { ShopsDocument } from './entities';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
+import { UsersDocument } from '../users';
 
 @Injectable()
 export class ShopsService {
@@ -13,23 +14,32 @@ export class ShopsService {
     private readonly shopsModel: Model<ShopsDocument>,
   ) {}
 
-  create(createShopDto: CreateShopDto) {
-    return 'This action adds a new shop';
+  async create(
+    user: UsersDocument,
+    createShopDto: CreateShopDto,
+  ): Promise<ShopsDocument> {
+    const newShop = new this.shopsModel({
+      ...createShopDto,
+      owner_name: user.name,
+      owner_id: user._id,
+    });
+
+    return newShop;
   }
 
-  findAll() {
+  async findAll(): Promise<string> {
     return `This action returns all shops`;
   }
 
-  findOne(id: number) {
+  async findOne(id: string): Promise<string> {
     return `This action returns a #${id} shop`;
   }
 
-  update(id: number, updateShopDto: UpdateShopDto) {
+  async update(id: string, updateShopDto: UpdateShopDto): Promise<string> {
     return `This action updates a #${id} shop`;
   }
 
-  remove(id: number) {
+  async remove(id: string): Promise<string> {
     return `This action removes a #${id} shop`;
   }
 }
