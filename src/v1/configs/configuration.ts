@@ -1,6 +1,15 @@
-export default () => ({
-  port: parseInt(process.env['PORT'], 10) || 5000,
+interface IConfig {
+  port: number;
   database: {
-    uri: process.env['DATABASE_URI'],
-  },
-});
+    uri: string;
+  };
+}
+
+export default (): IConfig => {
+  return {
+    port: parseInt(process.env['PORT'], 10) || 5000,
+    database: {
+      uri: process.env['DATABASE_URI'],
+    },
+  };
+};

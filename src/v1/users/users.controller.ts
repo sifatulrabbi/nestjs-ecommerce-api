@@ -1,6 +1,5 @@
 // prettier-ignore
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, Req } from '@nestjs/common';
-import { Request } from 'express';
+import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
 
 import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
 import { UsersService } from './users.service';

@@ -45,7 +45,10 @@ export class ShopsController {
   @UseGuards(LocalAuthGuard, RolesGuard)
   @Roles('owner', 'admin')
   @Delete(':id')
-  remove(@User() user: UsersDocument, @Param('id') id: string) {
+  remove(
+    @User() user: UsersDocument,
+    @Param('id') id: string,
+  ): Promise<string> {
     return this.shopsService.remove(id);
   }
 }

@@ -2,7 +2,6 @@
 import { HttpException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import type { Model, ObjectId } from 'mongoose';
-import { Request } from 'express';
 import * as bcrypt from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -118,41 +117,32 @@ export class UsersService {
       throw new UnauthorizedException(`you don't have required permissions`);
     }
 
-    const {
-      new_email,
-      new_name,
-      new_password,
-      new_confirm_password,
-      new_shop_name,
-      new_shop_id,
-    } = updateUserDto;
-
     const updateQueue: IUser = {
       name: user.name,
       email: user.email,
       password: user.password,
     };
 
-    if (new_password) {
-      if (!new_confirm_password) {
+    if (updateUserDto.new_password) {
+      if (!updateUserDto.new_confirm_password) {
         throw new HttpException('confirm_password is required', 400);
       }
-      if (new_password === new_confirm_password) {
-        const hash = await this.hashString(new_password);
+      if (updateUserDto.new_password === updateUserDto.new_confirm_password) {
+        const hash = await this.hashString(updateUserDto.new_password);
         updateQueue.password = hash;
       } else throw new HttpException("passwords don't match", 400);
     }
-    if (new_email) {
-      updateQueue.email = new_email;
+    if (updateUserDto.new_email) {
+      updateQueue.email = updateUserDto.new_email;
     }
-    if (new_name) {
-      updateQueue.name = new_name;
+    if (updateUserDto.new_name) {
+      updateQueue.name = updateUserDto.new_name;
     }
-    if (new_shop_id) {
-      updateQueue.shop_id = new_shop_id;
+    if (updateUserDto.new_shop_id) {
+      updateQueue.shop_id = updateUserDto.new_shop_id;
     }
-    if (new_shop_name) {
-      updateQueue.shop_name = new_shop_name;
+    if (updateUserDto.new_shop_name) {
+      updateQueue.shop_name = updateUserDto.new_shop_name;
     }
 
     const updatedUser = await this.usersModel.findByIdAndUpdate(
@@ -168,7 +158,7 @@ export class UsersService {
     };
   }
 
-  async remove(id: string, loginUserDto: LoginUserDto) {
+  async remove(id: string, loginUserDto: LoginUserDto): Promise<string> {
     const user = await this.findUserByIdAndAuth(id, loginUserDto.password);
 
     user.remove();
