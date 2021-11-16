@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
+// prettier-ignore
+import { Injectable, NotFoundException, BadRequestException, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, NativeError } from 'mongoose';
 
 import { ShopsDocument } from './entities';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
 import { UsersDocument } from '../users';
-import { IShop } from 'src/interfaces';
 
 @Injectable()
 export class ShopsService {
@@ -14,6 +14,17 @@ export class ShopsService {
     @InjectModel('shops')
     private readonly shopsModel: Model<ShopsDocument>,
   ) {}
+
+  private async updateUser(
+    user: UsersDocument,
+    shop: ShopsDocument,
+  ): Promise<void> {
+    await user
+      .updateOne({ shop_id: shop.id, shop_name: shop.name })
+      .catch((err) => {
+        throw new InternalServerErrorException(err);
+      });
+  }
 
   async create(
     user: UsersDocument,
@@ -25,17 +36,38 @@ export class ShopsService {
       owner_id: user._id,
     });
 
-    const createdShop = await newShop.save();
+    const createdShop = await newShop.save().catch((err: NativeError) => {
+      throw new BadRequestException(err);
+    });
+
+    if (!createdShop) {
+      throw new BadRequestException('Unable to create shop');
+    }
+
+    await this.updateUser(user, createdShop);
+
     return createdShop;
   }
 
   async findAll(): Promise<ShopsDocument[]> {
-    const shops: ShopsDocument[] = await this.shopsModel.find({});
+    const shops: ShopsDocument[] = await this.shopsModel
+      .find({})
+      .catch((err: NativeError) => {
+        throw new BadRequestException(err);
+      });
     return shops;
   }
 
-  async findOne(id: string): Promise<IShop> {
-    const shop: IShop = await this.shopsModel.findById(id);
+  async findOne(id: string): Promise<ShopsDocument> {
+    const shop = await this.shopsModel
+      .findById(id)
+      .catch((err: NativeError) => {
+        throw new BadRequestException(err);
+      });
+
+    if (!shop) {
+      throw new NotFoundException('shop not found!');
+    }
     return shop;
   }
 
@@ -61,13 +93,23 @@ export class ShopsService {
       shop.products = [...shop.products, ...updateShopDto.new_products];
     }
 
-    const updatedShop = await this.shopsModel.findByIdAndUpdate(id, shop, {
-      new: true,
-    });
+    const updatedShop = await this.shopsModel
+      .findByIdAndUpdate(id, shop, {
+        new: true,
+      })
+      .catch((err: NativeError) => {
+        throw new BadRequestException(err);
+      });
     return updatedShop;
   }
 
   async remove(id: string): Promise<string> {
-    return `This action removes a #${id} shop`;
+    const shop = await this.findOne(id);
+    return shop
+      .remove()
+      .then(() => 'Shop deleted')
+      .catch((err: NativeError) => {
+        throw new BadRequestException(err);
+      });
   }
 }
