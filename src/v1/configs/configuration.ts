@@ -5,11 +5,14 @@ interface IConfig {
   };
 }
 
+const port = process.env['PORT'];
+const uri = process.env['DATABASE_URI'];
+
 export default (): IConfig => {
   return {
-    port: parseInt(process.env['PORT'], 10) || 5000,
+    port: port ? parseInt(port, 10) : 5000,
     database: {
-      uri: process.env['DATABASE_URI'],
+      uri: uri ? uri : 'mongoose://localhost:5000/database',
     },
   };
 };

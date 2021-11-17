@@ -90,7 +90,11 @@ export class ShopsService {
       shop.categories = updateShopDto.new_categories;
     }
     if (updateShopDto.new_products) {
-      shop.products = [...shop.products, ...updateShopDto.new_products];
+      if (shop.products) {
+        shop.products = [...shop.products, ...updateShopDto.new_products];
+      } else {
+        shop.products = [...updateShopDto.new_products];
+      }
     }
 
     const updatedShop = await this.shopsModel
@@ -100,6 +104,11 @@ export class ShopsService {
       .catch((err: NativeError) => {
         throw new BadRequestException(err);
       });
+
+    if (!updatedShop) {
+      throw new BadRequestException('Unable to update the shop');
+    }
+
     return updatedShop;
   }
 

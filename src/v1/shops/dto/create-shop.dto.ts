@@ -7,17 +7,17 @@ export class CreateShopDto extends LoginUserDto {
   @ApiProperty({ required: true })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @ApiProperty({ required: true })
   @IsString()
   @IsNotEmpty()
-  desc: string;
+  desc!: string;
 
   @ApiProperty({ required: true, isArray: true })
   @IsArray()
   @IsNotEmpty()
-  categories: string[];
+  categories!: string[];
 
   @ApiProperty({ required: false, isArray: true })
   @IsArray()

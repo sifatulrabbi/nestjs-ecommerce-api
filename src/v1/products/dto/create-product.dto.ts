@@ -5,23 +5,23 @@ import { LoginUserDto } from '../../users';
 export class CreateProductDto extends LoginUserDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 
   @IsString()
   @IsNotEmpty()
-  desc: string;
+  desc!: string;
 
   @IsNumber()
   @IsNotEmpty()
-  price: number;
+  price!: number;
 
   @IsString()
   @IsNotEmpty()
-  category: string;
+  category!: string;
 
   @IsArray()
   @IsOptional()
-  tags: string;
+  tags!: string;
 
   shop_id?: string;
 }

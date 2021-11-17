@@ -22,9 +22,9 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string): Promise<IUser> {
-    return this.usersService.findOne(id);
+  @Get(':userId')
+  findOne(@Param('userId') userId: string): Promise<IUser> {
+    return this.usersService.findOne(userId);
   }
 
   @UseGuards(LocalAuthGuard)
@@ -34,21 +34,22 @@ export class UsersController {
   }
 
   @UseGuards(LocalAuthGuard)
-  @Put(':id')
+  @Put(':userId')
   update(
     @User() user: UsersDocument,
-    @Param('id') id: string,
+    @Param('userId') userId: string,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<IUserPreview> {
-    return this.usersService.update(user, id, updateUserDto);
+    return this.usersService.update(user, userId, updateUserDto);
   }
 
   @UseGuards(LocalAuthGuard)
-  @Delete(':id')
+  @Delete(':userId')
   async remove(
-    @Param('id') id: string,
+    @Param('userId') userId: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Body() loginUserDto: LoginUserDto,
   ): Promise<string> {
-    return this.usersService.remove(id, loginUserDto);
+    return this.usersService.remove(userId);
   }
 }

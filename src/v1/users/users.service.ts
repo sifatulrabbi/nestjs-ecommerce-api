@@ -1,13 +1,12 @@
 // prettier-ignore
-import { HttpException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, HttpException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import type { Model, ObjectId } from 'mongoose';
+import type { Model, NativeError, ObjectId } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersDocument } from './entities';
-import { LoginUserDto } from './dto';
 import { IUser, IUserPreview } from 'src/interfaces';
 
 @Injectable()
@@ -22,38 +21,6 @@ export class UsersService {
     const hash = await bcrypt.hash(str, salt);
 
     return hash;
-  }
-
-  private async compareString(str: string, hash: string): Promise<boolean> {
-    const compare = await bcrypt.compare(str, hash);
-
-    return compare;
-  }
-
-  private async findUserByIdAndAuth(
-    id: string,
-    password: string,
-  ): Promise<UsersDocument> {
-    const user = await this.usersModel.findById(id);
-
-    if (user && (await this.compareString(password, user.password))) {
-      return user;
-    } else {
-      throw new UnauthorizedException();
-    }
-  }
-
-  private async findUserAndAuth(
-    email: string,
-    password: string,
-  ): Promise<UsersDocument> {
-    const user = await this.usersModel.findOne({ email });
-
-    if (user && (await this.compareString(password, user.password))) {
-      return user;
-    } else {
-      throw new UnauthorizedException();
-    }
   }
 
   async create(createUserDto: CreateUserDto): Promise<UsersDocument> {
@@ -93,9 +60,12 @@ export class UsersService {
     return user;
   }
 
-  async findByEmail(email: string): Promise<UsersDocument> {
+  async findByEmail(email: string): Promise<UsersDocument | undefined> {
     const user = await this.usersModel.findOne({ email });
-    return user;
+    if (user) {
+      return user;
+    }
+    throw new NotFoundException('user not found');
   }
 
   async login(user: UsersDocument): Promise<IUserPreview> {
@@ -110,11 +80,13 @@ export class UsersService {
 
   async update(
     user: UsersDocument,
-    id: string,
+    userId: string,
     updateUserDto: UpdateUserDto,
   ): Promise<IUserPreview> {
-    if (user.id !== id) {
-      throw new UnauthorizedException(`you don't have required permissions`);
+    if (user.id !== userId) {
+      throw new ForbiddenException(
+        'Your are forbidden from changing this data',
+      );
     }
 
     const updateQueue: IUser = {
@@ -146,10 +118,16 @@ export class UsersService {
     }
 
     const updatedUser = await this.usersModel.findByIdAndUpdate(
-      id,
+      userId,
       { ...updateQueue },
       { new: true },
     );
+
+    if (!updatedUser) {
+      throw new BadRequestException(
+        'Unable to update user please try again later',
+      );
+    }
     return {
       _id: updatedUser.id,
       name: updatedUser.name,
@@ -158,10 +136,12 @@ export class UsersService {
     };
   }
 
-  async remove(id: string, loginUserDto: LoginUserDto): Promise<string> {
-    const user = await this.findUserByIdAndAuth(id, loginUserDto.password);
-
-    user.remove();
+  async remove(userId: string): Promise<string> {
+    await this.usersModel
+      .findByIdAndRemove(userId)
+      .catch((err: NativeError) => {
+        throw new BadRequestException(err);
+      });
     return `User removed`;
   }
 }

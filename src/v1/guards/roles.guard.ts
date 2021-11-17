@@ -13,19 +13,17 @@ export class RolesGuard implements CanActivate {
   }
 
   private matchOwner(user: UsersDocument, id: string): boolean {
-    if (user.shop_id === id) {
-      return true;
-    } else {
+    if (user.shop_id !== id) {
       this.noPermission();
     }
+    return true;
   }
 
   private matchAdmin(user: UsersDocument): boolean {
-    if (user.name === 'admin' && user.email === 'admin@exp.com') {
-      return true;
-    } else {
+    if (user.name !== 'admin' && user.email !== 'admin@exp.com') {
       this.noPermission();
     }
+    return true;
   }
 
   canActivate(context: ExecutionContext): boolean {
@@ -37,12 +35,19 @@ export class RolesGuard implements CanActivate {
 
     if (!roles || !user) {
       this.noPermission();
-    } else if (roles.find((role) => role === 'owner')) {
-      return this.matchOwner(user, params['id']);
-    } else if (roles.find((role) => role === 'admin')) {
-      return this.matchAdmin(user);
-    } else {
+    }
+
+    if (
+      roles.find((role) => role !== 'owner') &&
+      roles.find((role) => role === 'admin')
+    ) {
       this.noPermission();
     }
+
+    if (roles.find((role) => role === 'owner')) {
+      return this.matchOwner(user, params['id']);
+    }
+
+    return this.matchAdmin(user);
   }
 }

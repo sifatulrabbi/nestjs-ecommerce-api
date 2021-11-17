@@ -5,21 +5,21 @@ import { LoginUserDto } from '../../users';
 export class UpdateProductDto extends LoginUserDto {
   @IsString()
   @IsOptional()
-  name: string;
+  new_name?: string;
 
   @IsString()
   @IsOptional()
-  desc: string;
+  new_desc?: string;
 
   @IsNumber()
   @IsOptional()
-  price: number;
+  new_price?: number;
 
   @IsString()
   @IsOptional()
-  category: string;
+  new_category?: string;
 
   @IsArray()
   @IsOptional()
-  tags: string;
+  new_tags?: string[];
 }

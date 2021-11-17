@@ -5,11 +5,11 @@ export class LoginUserDto {
   @ApiProperty({ required: true })
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  email!: string;
 
   @ApiProperty({ required: true, minLength: 8 })
   @IsNotEmpty()
   @IsString()
   @MinLength(8)
-  password: string;
+  password!: string;
 }

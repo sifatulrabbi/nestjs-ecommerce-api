@@ -6,24 +6,24 @@ export class UpdateUserDto extends LoginUserDto {
   @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
-  new_name: string;
+  new_name!: string;
 
   @ApiProperty({ required: false })
   @IsEmail()
   @IsOptional()
-  new_email: string;
+  new_email!: string;
 
   @ApiProperty({ required: false, minLength: 8 })
   @MinLength(8)
   @IsString()
   @IsOptional()
-  new_password: string;
+  new_password!: string;
 
   @ApiProperty({ required: false, minLength: 8 })
   @MinLength(8)
   @IsString()
   @IsOptional()
-  new_confirm_password: string;
+  new_confirm_password!: string;
 
   @ApiProperty({ required: false })
   @IsString()

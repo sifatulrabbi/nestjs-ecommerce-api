@@ -7,22 +7,22 @@ export type ProductsDocument = Products & Document;
 @Schema({ timestamps: true })
 class Products implements IProduct {
   @Prop({ required: true })
-  name: string;
+  name!: string;
 
   @Prop({ required: true })
-  desc: string;
+  desc!: string;
 
   @Prop({ required: true })
-  price: number;
+  price!: number;
 
   @Prop({ required: true })
-  category: string;
+  category!: string;
 
   @Prop({ type: [String] })
   tags?: string[];
 
   @Prop({ required: true })
-  shop_id: string;
+  shop_id!: string;
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);
