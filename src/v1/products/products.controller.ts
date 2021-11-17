@@ -4,25 +4,26 @@ import { ProductsService } from './products.service';
 import { CreateProductDto, UpdateProductDto } from './dto';
 import { LocalAuthGuard, RolesGuard } from '../guards';
 import { Roles } from '../decorators';
+import { IProduct } from 'src/interfaces';
 
-@Controller('products')
+@Controller({ version: '1', path: 'products' })
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
+
+  @Get()
+  findAll(): Promise<IProduct[]> {
+    return this.productsService.findAll();
+  }
 
   @Roles('admin')
   @UseGuards(LocalAuthGuard, RolesGuard)
   @Post()
-  create(@Body() createProductDto: CreateProductDto): string {
+  create(@Body() createProductDto: CreateProductDto): Promise<IProduct> {
     return this.productsService.create(createProductDto);
   }
 
-  @Get()
-  findAll(): string {
-    return this.productsService.findAll();
-  }
-
   @Get(':productId')
-  findOne(@Param('productId') productId: string): string {
+  findOne(@Param('productId') productId: string): Promise<IProduct> {
     return this.productsService.findOne(productId);
   }
 
@@ -32,7 +33,7 @@ export class ProductsController {
   update(
     @Param('productId') productId: string,
     @Body() updateProductDto: UpdateProductDto,
-  ): string {
+  ): Promise<IProduct> {
     return this.productsService.update(productId, updateProductDto);
   }
 

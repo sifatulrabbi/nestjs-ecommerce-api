@@ -22,6 +22,4 @@ export class CreateProductDto extends LoginUserDto {
   @IsArray()
   @IsOptional()
   tags!: string;
-
-  shop_id?: string;
 }

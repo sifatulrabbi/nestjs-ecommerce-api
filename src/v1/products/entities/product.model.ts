@@ -7,7 +7,7 @@ import { ProductsSchema } from './products.schema';
     MongooseModule.forFeature([{ name: 'products', schema: ProductsSchema }]),
   ],
   exports: [
-    MongooseModule.forFeature([{ name: 'products', schema: ProductsModel }]),
+    MongooseModule.forFeature([{ name: 'products', schema: ProductsSchema }]),
   ],
 })
 export class ProductsModel {}

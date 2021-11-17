@@ -7,6 +7,6 @@ import { ProductsModel } from './entities';
   imports: [ProductsModel],
   controllers: [ProductsController],
   providers: [ProductsService],
-  exports: [ProductsService],
+  exports: [ProductsModel, ProductsService],
 })
 export class ProductsModule {}

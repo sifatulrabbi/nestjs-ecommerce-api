@@ -4,7 +4,7 @@ import { ShopsService } from './shops.service';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
 import { UsersDocument } from '../users';
-import { IShop } from 'src/interfaces';
+import { IProduct, IShop } from 'src/interfaces';
 import { User, Roles } from '../decorators';
 import { LocalAuthGuard, RolesGuard } from '../guards';
 import { ProductsService } from '../products';
@@ -68,14 +68,16 @@ export class ShopsController {
    *******************************************************/
 
   @Get(':shopId/products')
-  getAllProducts(@Param('shopId') shopId: string): string {
-    console.log(shopId);
-    return this.productsService.findAll();
+  getAllProducts(@Param('shopId') shopId: string): Promise<IProduct[]> {
+    return this.productsService.findAllForShop(shopId);
   }
 
   @Get(':shopId/products/:productId')
-  getAProduct(@Param('productId') productId: string): string {
-    return this.productsService.findOne(productId);
+  getAProduct(
+    @Param('shopId') shopId: string,
+    @Param('productId') productId: string,
+  ): Promise<IProduct> {
+    return this.productsService.findOneForShop(shopId, productId);
   }
 
   @UseGuards(LocalAuthGuard, RolesGuard)
@@ -84,9 +86,8 @@ export class ShopsController {
   createProduct(
     @Param('shopId') shopId: string,
     @Body('product') createProductDto: CreateProductDto,
-  ): string {
-    createProductDto.shop_id = shopId;
-    return this.productsService.create(createProductDto);
+  ): Promise<IProduct> {
+    return this.productsService.create(createProductDto, shopId);
   }
 
   @UseGuards(LocalAuthGuard, RolesGuard)
@@ -96,7 +97,7 @@ export class ShopsController {
     @Param('shopId') shopId: string,
     @Param('productId') productId: string,
     @Body() updateProductDto: UpdateProductDto,
-  ): string {
+  ): Promise<IProduct> {
     return this.productsService.update(productId, updateProductDto);
   }
 
