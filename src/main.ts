@@ -7,6 +7,7 @@ import { ValidationPipe, VersioningType } from '@nestjs/common';
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(V1Module);
   const config = app.get(ConfigService);
+  const PORT: number = config.get<number>('port') || 5000;
 
   app.useGlobalPipes(
     new ValidationPipe({ stopAtFirstError: true, always: true }),
@@ -24,7 +25,7 @@ async function bootstrap(): Promise<void> {
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(config.get<number>('port'));
+  await app.listen(PORT);
   console.log(`App is running on url: ${await app.getUrl()}`);
 }
 bootstrap();

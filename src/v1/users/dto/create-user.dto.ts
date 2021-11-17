@@ -6,16 +6,16 @@ export class CreateUserDto implements IUser {
   @ApiProperty({ required: true })
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email!: string;
 
   @ApiProperty({ required: true, minLength: 8 })
   @MinLength(8)
   @IsString()
   @IsNotEmpty()
-  password: string;
+  password!: string;
 
   @ApiProperty({ required: true })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
 }

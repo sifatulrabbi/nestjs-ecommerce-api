@@ -7,13 +7,13 @@ export type UsersDocument = Users & Document;
 @Schema({ timestamps: true })
 class Users implements IUser {
   @Prop({ required: true, unique: true })
-  email: string;
+  email!: string;
 
   @Prop({ required: true })
-  password: string;
+  password!: string;
 
   @Prop({ required: true })
-  name: string;
+  name!: string;
 
   @Prop()
   shop_name?: string;
