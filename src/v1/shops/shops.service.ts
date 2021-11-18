@@ -72,10 +72,10 @@ export class ShopsService {
   }
 
   async update(
-    id: string,
+    shopId: string,
     updateShopDto: UpdateShopDto,
   ): Promise<ShopsDocument> {
-    const shop = await this.findOne(id);
+    const shop = await this.findOne(shopId);
 
     if (updateShopDto.new_name) {
       shop.name = updateShopDto.new_name;
@@ -87,7 +87,7 @@ export class ShopsService {
       shop.desc = updateShopDto.new_desc;
     }
     if (updateShopDto.new_categories) {
-      shop.categories = updateShopDto.new_categories;
+      shop.categories = [...shop.categories, ...updateShopDto.new_categories];
     }
     if (updateShopDto.new_products) {
       if (shop.products) {
@@ -98,7 +98,7 @@ export class ShopsService {
     }
 
     const updatedShop = await this.shopsModel
-      .findByIdAndUpdate(id, shop, {
+      .findByIdAndUpdate(shopId, shop, {
         new: true,
       })
       .catch((err: NativeError) => {
@@ -112,8 +112,8 @@ export class ShopsService {
     return updatedShop;
   }
 
-  async remove(id: string): Promise<string> {
-    const shop = await this.findOne(id);
+  async remove(shopId: string): Promise<string> {
+    const shop = await this.findOne(shopId);
     return shop
       .remove()
       .then(() => 'Shop deleted')
