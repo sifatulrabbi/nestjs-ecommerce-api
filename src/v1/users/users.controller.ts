@@ -3,7 +3,7 @@ import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, NotFoundExc
 
 import { CreateUserDto, UpdateUserDto, LoginUserDto } from './dto';
 import { UsersService } from './users.service';
-import { IUser, IUserPreview } from 'src/interfaces';
+import { IUserPreview } from 'src/interfaces';
 import { LocalAuthGuard } from '../guards';
 import { UsersDocument } from '.';
 import { User } from '../decorators';
