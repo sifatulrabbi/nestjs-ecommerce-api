@@ -29,21 +29,24 @@ export class UsersService {
     }
 
     const hashedPass = await this.hashString(createUserDto.password);
-
     const newUser = new this.usersModel({
       ...createUserDto,
       password: hashedPass,
     });
-    const createdUser = await newUser.save();
 
+    const createdUser = await newUser.save();
     if (!createdUser) {
       throw new InternalServerErrorException();
     }
+
     return createdUser;
   }
 
-  async findAll(): Promise<UsersDocument[]> {
-    const users = await this.usersModel.find({});
+  async findAll(): Promise<IUserPreview[]> {
+    const users: IUserPreview[] = await this.usersModel.find(
+      {},
+      'name email _id shop_name shop_id',
+    );
 
     if (!users) {
       throw new InternalServerErrorException();
@@ -53,7 +56,6 @@ export class UsersService {
 
   async findOne(id: string | ObjectId): Promise<UsersDocument> {
     const user = await this.usersModel.findById(id);
-
     if (!user) {
       throw new HttpException('Unable to find any user', 500);
     }
@@ -68,21 +70,11 @@ export class UsersService {
     throw new NotFoundException('user not found');
   }
 
-  async login(user: UsersDocument): Promise<IUserPreview> {
-    const data: IUserPreview = {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      shop_name: user.shop_name,
-    };
-    return data;
-  }
-
   async update(
     user: UsersDocument,
     userId: string,
     updateUserDto: UpdateUserDto,
-  ): Promise<IUserPreview> {
+  ): Promise<UsersDocument> {
     if (user.id !== userId) {
       throw new ForbiddenException(
         'Your are forbidden from changing this data',
@@ -122,18 +114,12 @@ export class UsersService {
       { ...updateQueue },
       { new: true },
     );
-
     if (!updatedUser) {
       throw new BadRequestException(
         'Unable to update user please try again later',
       );
     }
-    return {
-      _id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      shop_name: updatedUser.shop_name,
-    };
+    return updatedUser;
   }
 
   async remove(userId: string): Promise<string> {
