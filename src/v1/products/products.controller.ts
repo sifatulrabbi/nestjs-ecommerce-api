@@ -40,7 +40,7 @@ export class ProductsController {
   @Roles('admin')
   @UseGuards(LocalAuthGuard, RolesGuard)
   @Delete(':productId')
-  remove(@Param('productId') productId: string): string {
+  remove(@Param('productId') productId: string): Promise<string> {
     return this.productsService.remove(productId);
   }
 }

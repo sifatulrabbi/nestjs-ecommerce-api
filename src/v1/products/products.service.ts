@@ -1,5 +1,5 @@
 // prettier-ignore
-import { HttpException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 
 import { ProductsDocument } from './entities';
@@ -115,7 +115,11 @@ export class ProductsService {
     return updatedProduct;
   }
 
-  remove(id: string): string {
-    return `This action removes a #${id} product`;
+  async remove(productId: string): Promise<string> {
+    await this.productsModel.findByIdAndRemove(productId).catch((err) => {
+      throw new BadRequestException(err);
+    });
+
+    return `Product deleted`;
   }
 }
