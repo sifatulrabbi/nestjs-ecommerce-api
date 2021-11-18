@@ -81,11 +81,11 @@ export class ShopsController {
   }
 
   @UseGuards(LocalAuthGuard, RolesGuard)
-  @Roles('admin', 'owner')
+  @Roles('owner', 'admin')
   @Post(':shopId/products')
   createProduct(
     @Param('shopId') shopId: string,
-    @Body('product') createProductDto: CreateProductDto,
+    @Body() createProductDto: CreateProductDto,
   ): Promise<IProduct> {
     return this.productsService.create(createProductDto, shopId);
   }

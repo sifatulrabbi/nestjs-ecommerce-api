@@ -110,7 +110,7 @@ export class ProductsService {
       }
     }
 
-    const updatedProduct = product.updateOne({ ...data });
+    const updatedProduct = product.update({ ...data }, { new: true });
 
     return updatedProduct;
   }
