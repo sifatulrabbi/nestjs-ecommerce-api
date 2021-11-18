@@ -12,8 +12,8 @@ export class RolesGuard implements CanActivate {
     throw new ForbiddenException('Insufficient permission');
   }
 
-  private matchOwner(user: UsersDocument, id: string): boolean {
-    if (user.shop_id !== id) {
+  private matchOwner(user: UsersDocument, shopId: string): boolean {
+    if (user.shop_id !== shopId) {
       this.noPermission();
     }
     return true;
@@ -28,7 +28,6 @@ export class RolesGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const roles = this.reflector.get<string[]>('roles', context.getHandler());
-
     const request: Request = context.switchToHttp().getRequest();
     const user = request.user as UsersDocument;
     const params = request.params;
@@ -37,17 +36,15 @@ export class RolesGuard implements CanActivate {
       this.noPermission();
     }
 
-    if (
-      roles.find((role) => role !== 'owner') &&
-      roles.find((role) => role === 'admin')
-    ) {
-      this.noPermission();
+    if (roles.indexOf('owner') !== -1) {
+      return this.matchOwner(user, params['shopId']);
     }
 
-    if (roles.find((role) => role === 'owner')) {
-      return this.matchOwner(user, params['id']);
+    if (roles.indexOf('admin') !== -1) {
+      return this.matchAdmin(user);
     }
 
-    return this.matchAdmin(user);
+    this.noPermission();
+    return false;
   }
 }
