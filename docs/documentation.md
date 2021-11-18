@@ -223,3 +223,75 @@ const deleteShop = async (email, password) => {
   return 'shop deleted';
 };
 ```
+
+## Add Product to the Shop
+
+```javascript
+/**
+ * @tags this field should be an array @example ['clothes', 'shoes']
+ */
+
+const url = 'https://exp-e-commerce-api.herokuapp.com/api/v1';
+
+const addAProduct = async (email, password, productData) => {
+  const res = await axios.post(`${url}/shops`, {
+    email: email,
+    password: password,
+    name: productData.name,
+    desc: productData.desc,
+    price: productData.price,
+    category: productData.category,
+    tags: productData.tags,
+  });
+
+  return res.data;
+};
+```
+
+## Update a Product
+
+```javascript
+const url = 'https://exp-e-commerce-api.herokuapp.com/api/v1';
+
+const reqUrl = `${url}/shops/:shopId/products/:productId`; // as shop owner
+// or
+const reqUrl = `${url}/products/:productId`; // as admin
+
+const addAProduct = async (email, password, productData) => {
+  const res = await axios.put(reqUrl, {
+    email: email,
+    password: password,
+    new_name: productData.name,
+    new_desc: productData.desc,
+    new_price: productData.price,
+    new_category: productData.category,
+    new_tags: productData.tags,
+  });
+
+  return res.data;
+};
+```
+
+## Remove a Product
+
+```javascript
+const url = 'https://exp-e-commerce-api.herokuapp.com/api/v1';
+
+const reqUrl = `${url}/shops/:shopId/products/:productId`; // as shop owner
+// or
+const reqUrl = `${url}/products/:productId`; // as admin
+
+const addAProduct = async (email, password, productData) => {
+  const res = await axios.post(reqUrl, {
+    email: email,
+    password: password,
+    new_name: productData.name,
+    new_desc: productData.desc,
+    new_price: productData.price,
+    new_category: productData.category,
+    new_tags: productData.tags,
+  });
+
+  return res.data;
+};
+```
