@@ -45,7 +45,6 @@ export class ShopsController {
   @Roles('owner', 'admin')
   @Put(':shopId')
   update(
-    @User() user: UsersDocument,
     @Param('shopId') id: string,
     @Body() updateShopDto: UpdateShopDto,
   ): Promise<IShop> {
@@ -83,11 +82,20 @@ export class ShopsController {
   @UseGuards(LocalAuthGuard, RolesGuard)
   @Roles('owner', 'admin')
   @Post(':shopId/products')
-  createProduct(
+  async createProduct(
     @Param('shopId') shopId: string,
     @Body() createProductDto: CreateProductDto,
   ): Promise<IProduct> {
-    return this.productsService.create(createProductDto, shopId);
+    const product = await this.productsService.create(createProductDto, shopId);
+    const productId: string = product.id;
+    const updateDto = {
+      email: createProductDto.email,
+      password: createProductDto.password,
+      new_products: [productId],
+    };
+    this.shopsService.update(shopId, updateDto);
+
+    return product as IProduct;
   }
 
   @UseGuards(LocalAuthGuard, RolesGuard)
@@ -107,7 +115,7 @@ export class ShopsController {
   removeProduct(
     @Param('shopId') shopId: string,
     @Param('productId') productId: string,
-  ): string {
+  ): Promise<string> {
     return this.productsService.remove(productId);
   }
 }
