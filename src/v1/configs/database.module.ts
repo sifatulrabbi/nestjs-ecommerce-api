@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ envFilePath: '.env' }),
     MongooseModule.forRootAsync({
       useFactory: async () => ({
-        uri: 'mongodb+srv://temujin:Savage0.5@my-database-01.ofame.mongodb.net/my-database-01?retryWrites=true&w=majority',
+        uri: process.env['MONGODB_URI'],
       }),
     }),
   ],
