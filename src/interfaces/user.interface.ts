@@ -11,3 +11,7 @@ export type IUserPreview = Pick<
   IUser,
   '_id' | 'email' | 'name' | 'shop_name' | 'shop_id'
 >;
+
+export interface IUserSession {
+  id: string;
+}
